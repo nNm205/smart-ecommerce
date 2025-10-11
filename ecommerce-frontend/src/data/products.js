@@ -12,6 +12,8 @@ export const products = [
       "Phù hợp với hầu hết vóc dáng nam giới, form regular mang đến sự cân đối và thoải mái khi mặc. Dễ dàng kết hợp cùng quần jeans, jogger hoặc short để tạo nên outfit năng động cho đi làm, đi chơi hay dạo phố.",
       "Hình thêu chủ đề Exploring được bố trí tinh tế ở ngực trái, thể hiện tinh thần phiêu lưu và tự do. Điểm nhấn logo dệt ở lai áo giúp tăng thêm tính nhận diện thương hiệu.",
     ],
+    rating: 4.5,
+    isNew: true,
   },
   {
     id: "ATID0611-01",
@@ -26,6 +28,8 @@ export const products = [
       "Form dáng vừa vặn, thoải mái, dễ kết hợp cùng quần jeans, jogger hoặc short. Logo cao su phát triển riêng biệt gắn tinh tế, tăng độ nhận diện thương hiệu ICONDENIM.",
       "Hoạ tiết in thấm kết hợp in cao thành nền nhám nổi bật. Điểm nhấn graphic mang phong cách nghệ thuật đường phố, giúp outfit trở nên cá tính hơn.",
     ],
+    rating: 5,
+    isNew: true,
   },
   {
     id: "ATID0612-01",
@@ -40,6 +44,8 @@ export const products = [
       "Form dáng vừa vặn, gọn gàng, thích hợp phối với jeans, quần short hay kaki. Mang đến outfit năng động, phù hợp cả đi học, đi làm và đi chơi.",
       "Họa tiết thêu viền text kết hợp in thấm cùng dòng chữ ICDN tạo điểm nhấn cá tính. Logo nhãn kẹp bên hông khẳng định dấu ấn thương hiệu ICONDENIM.",
     ],
+    rating: 4.3,
+    isNew: true,
   },
   {
     id: "ATID0577-05",
@@ -54,9 +60,11 @@ export const products = [
       "Dáng boxy rộng rãi, vai xuôi tự nhiên tạo cảm giác thoải mái và phóng khoáng. Form này dễ phối cùng nhiều trang phục khác nhau, phù hợp với cả nam và nữ theo phong cách unisex.",
       "Thiết kế in cao ngực trái và graphic lớn ở thân sau mang đậm dấu ấn Heroic. Tag dệt đỏ và đường may kỹ thuật hai kim chắc chắn, tỉ mỉ, nổi bật cá tính và độ nhận diện thương hiệu.",
     ],
+    rating: 4.1,
+    isNew: true,
   },
   {
-    id: "ATID0597-01",
+    id: "ATID0597-02",
     name: "Áo Thun Nam Cotton Exploring Form Regular",
     price: 279000,
     images: [
@@ -68,9 +76,11 @@ export const products = [
       "Phù hợp với hầu hết vóc dáng nam giới, form regular mang đến sự cân đối và thoải mái khi mặc. Dễ dàng kết hợp cùng quần jeans, jogger hoặc short để tạo nên outfit năng động cho đi làm, đi chơi hay dạo phố.",
       "Hình thêu chủ đề Exploring được bố trí tinh tế ở ngực trái, thể hiện tinh thần phiêu lưu và tự do. Điểm nhấn logo dệt ở lai áo giúp tăng thêm tính nhận diện thương hiệu.",
     ],
+    rating: 4.7,
+    isNew: true,
   },
   {
-    id: "ATID0611-01",
+    id: "ATID0611-02",
     name: "Áo Thun Nam Hoạ Tiết Painting Form Regular",
     price: 329000,
     images: [
@@ -82,9 +92,11 @@ export const products = [
       "Form dáng vừa vặn, thoải mái, dễ kết hợp cùng quần jeans, jogger hoặc short. Logo cao su phát triển riêng biệt gắn tinh tế, tăng độ nhận diện thương hiệu ICONDENIM.",
       "Hoạ tiết in thấm kết hợp in cao thành nền nhám nổi bật. Điểm nhấn graphic mang phong cách nghệ thuật đường phố, giúp outfit trở nên cá tính hơn.",
     ],
+    rating: 5,
+    isNew: true,
   },
   {
-    id: "ATID0612-01",
+    id: "ATID0612-02",
     name: "Áo Thun Nam Hoạ Tiết Flexibility Form Regular",
     price: 299000,
     images: [
@@ -96,9 +108,11 @@ export const products = [
       "Form dáng vừa vặn, gọn gàng, thích hợp phối với jeans, quần short hay kaki. Mang đến outfit năng động, phù hợp cả đi học, đi làm và đi chơi.",
       "Họa tiết thêu viền text kết hợp in thấm cùng dòng chữ ICDN tạo điểm nhấn cá tính. Logo nhãn kẹp bên hông khẳng định dấu ấn thương hiệu ICONDENIM.",
     ],
+    rating: 4.9,
+    isNew: true,
   },
   {
-    id: "ATID0577-05",
+    id: "ATID0577-06",
     name: "Áo Thun Nam Hoạ Tiết ICDN Heroic Form Boxy Fit",
     price: 329000,
     images: [
@@ -110,9 +124,11 @@ export const products = [
       "Dáng boxy rộng rãi, vai xuôi tự nhiên tạo cảm giác thoải mái và phóng khoáng. Form này dễ phối cùng nhiều trang phục khác nhau, phù hợp với cả nam và nữ theo phong cách unisex.",
       "Thiết kế in cao ngực trái và graphic lớn ở thân sau mang đậm dấu ấn Heroic. Tag dệt đỏ và đường may kỹ thuật hai kim chắc chắn, tỉ mỉ, nổi bật cá tính và độ nhận diện thương hiệu.",
     ],
+    rating: 4.2,
+    isNew: true,
   },
   {
-    id: "ATID0612-01",
+    id: "ATID0612-03",
     name: "Áo Thun Nam Hoạ Tiết Flexibility Form Regular",
     price: 299000,
     images: [
@@ -124,9 +140,11 @@ export const products = [
       "Form dáng vừa vặn, gọn gàng, thích hợp phối với jeans, quần short hay kaki. Mang đến outfit năng động, phù hợp cả đi học, đi làm và đi chơi.",
       "Họa tiết thêu viền text kết hợp in thấm cùng dòng chữ ICDN tạo điểm nhấn cá tính. Logo nhãn kẹp bên hông khẳng định dấu ấn thương hiệu ICONDENIM.",
     ],
+    rating: 4,
+    isNew: true,
   },
   {
-    id: "ATID0577-05",
+    id: "ATID0577-07",
     name: "Áo Thun Nam Hoạ Tiết ICDN Heroic Form Boxy Fit",
     price: 329000,
     images: [
@@ -138,5 +156,7 @@ export const products = [
       "Dáng boxy rộng rãi, vai xuôi tự nhiên tạo cảm giác thoải mái và phóng khoáng. Form này dễ phối cùng nhiều trang phục khác nhau, phù hợp với cả nam và nữ theo phong cách unisex.",
       "Thiết kế in cao ngực trái và graphic lớn ở thân sau mang đậm dấu ấn Heroic. Tag dệt đỏ và đường may kỹ thuật hai kim chắc chắn, tỉ mỉ, nổi bật cá tính và độ nhận diện thương hiệu.",
     ],
+    rating: 4.4,
+    isNew: true,
   },
 ];
