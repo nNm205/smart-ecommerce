@@ -1,0 +1,77 @@
+export const menuData = [
+  {
+    title: "Sản phẩm",
+    path: "category",
+    dropdown: "mega",
+    columns: [
+      {
+        title: "Áo nam",
+        path: "/category/ao-nam",
+        links: [
+          { label: "Áo thun", path: "/category/ao-thun" },
+          { label: "Áo sơmi", path: "/category/ao-somi" },
+          { label: "Áo khoác", path: "/category/ao-khoac" },
+          { label: "Áo polo", path: "/category/ao-polo" },
+          { label: "Hoodie", path: "/category/hoodie" },
+          { label: "Áo nỉ và len", path: "/category/ao-ni-len" },
+          { label: "Tanktop", path: "/category/tanktop" },
+        ],
+      },
+      {
+        title: "Quần nam",
+        path: "/category/quan-nam",
+        links: [
+          { label: "Quần short", path: "/category/quan-short" },
+          { label: "Quần jeans", path: "/category/quan-jeans" },
+          { label: "Quần kaki & chino", path: "/category/quan-kaki-chino" },
+          { label: "Quần tây", path: "/category/quan-tay" },
+          { label: "Quần boxer", path: "/category/quan-boxer" },
+          { label: "Quần jogger", path: "/category/quan-jogger" },
+        ],
+      },
+      {
+        title: "Giày & phụ kiện",
+        path: "/category/nhom-phu-kien",
+        links: [
+          { label: "Giày & Dép", path: "/category/giay-dep" },
+          { label: "Balo, Túi & Ví", path: "/category/tui-balo-vi" },
+          { label: "Nón", path: "/category/non" },
+          { label: "Thắt lưng", path: "/category/that-lung" },
+          { label: "Vớ", path: "/category/vo" },
+          { label: "Mắt kính", path: "/category/mat-kinh" },
+        ],
+      },
+      { title: "BEST SELLER", path: "/category/best-seller", links: [] },
+      { title: "SALE OFF", path: "/category/sale", links: [] },
+    ],
+  },
+  { title: "Hàng mới", path: "/category/new" },
+  {
+    title: "Áo nam",
+    path: "/category/ao-nam",
+    dropdown: "simple",
+    links: [
+      { label: "Áo thun", path: "/category/ao-thun" },
+      { label: "Áo sơmi", path: "/category/ao-somi" },
+      { label: "Áo khoác", path: "/category/ao-khoac" },
+      { label: "Áo polo", path: "/category/ao-polo" },
+      { label: "Hoodie", path: "/category/hoodie" },
+      { label: "Áo nỉ và len", path: "/category/ao-ni-len" },
+      { label: "Tanktop", path: "/category/tanktop" },
+    ],
+  },
+  {
+    title: "Quần nam",
+    path: "/category/quan-nam",
+    dropdown: "simple",
+    links: [
+      { label: "Quần short", path: "/category/quan-short" },
+      { label: "Quần jeans", path: "/category/quan-jeans" },
+      { label: "Quần kaki & chino", path: "/category/quan-kaki-chino" },
+      { label: "Quần tây", path: "/category/quan-tay" },
+      { label: "Quần boxer", path: "/category/quan-boxer" },
+      { label: "Quần jogger", path: "/category/quan-jogger" },
+    ],
+  },
+  { title: "SALE OFF", path: "/category/sale" },
+];
