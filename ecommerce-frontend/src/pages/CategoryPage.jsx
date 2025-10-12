@@ -69,7 +69,7 @@ function CategoryPage() {
     <div className="flex flex-col min-h-screen">
       <Navbar />
 
-      <div className="bg-gray-100 h-[60px] flex items-center px-6 lg:px-16 border-b border-gray-200">
+      <div className="bg-gray-100 h-[50px] flex items-center px-6 lg:px-16 border-b border-gray-200">
         <Link
           to="/"
           className="hover:text-blue-700 transition-colors duration-200"
@@ -90,7 +90,7 @@ function CategoryPage() {
       </div>
 
       <main className="flex-grow">
-        <div className="max-w-[1800px] mx-auto px-4 md:px-8 mt-6">
+        <div className="max-w-[1800px] mx-auto px-4 md:px-8">
           <img
             src={categoryBannerMap[category]}
             alt={categoryNameMap[category]}
@@ -98,23 +98,25 @@ function CategoryPage() {
           />
 
           {/* Thanh sắp xếp sản phẩm */}
-          <div className="flex justify-end items-center mt-10 mb-6">
-            <label htmlFor="sort" className="mr-3 text-gray-700 font-medium">
-              Sắp xếp theo:
-            </label>
-            <select
-              id="sort"
-              value={sortOption}
-              onChange={(e) => setSortOption(e.target.value)}
-              className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-700"
-            >
-              <option value="default">Mặc định</option>
-              <option value="name-asc">Tên A - Z</option>
-              <option value="name-desc">Tên Z - A</option>
-              <option value="price-asc">Giá tăng dần</option>
-              <option value="price-desc">Giá giảm dần</option>
-            </select>
-          </div>
+          {currentProducts.length > 0 && (
+            <div className="flex justify-end items-center mt-10 mb-6">
+              <label htmlFor="sort" className="mr-3 text-gray-700 font-medium">
+                Sắp xếp theo:
+              </label>
+              <select
+                id="sort"
+                value={sortOption}
+                onChange={(e) => setSortOption(e.target.value)}
+                className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-700"
+              >
+                <option value="default">Mặc định</option>
+                <option value="name-asc">Tên A - Z</option>
+                <option value="name-desc">Tên Z - A</option>
+                <option value="price-asc">Giá tăng dần</option>
+                <option value="price-desc">Giá giảm dần</option>
+              </select>
+            </div>
+          )}
 
           {/* Danh sách sản phẩm */}
           <div className="max-w-[1600px] mx-auto mt-10">
