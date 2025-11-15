@@ -41,6 +41,21 @@ export const products = [
     rating: 4.5,
     isNew: true,
     category: "ao-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "2",
@@ -55,6 +70,21 @@ export const products = [
     rating: 5,
     isNew: true,
     category: "ao-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "3",
@@ -69,6 +99,21 @@ export const products = [
     rating: 4.3,
     isNew: true,
     category: "ao-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "4",
@@ -83,6 +128,21 @@ export const products = [
     rating: 4.1,
     isNew: true,
     category: "ao-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "5",
@@ -97,6 +157,21 @@ export const products = [
     rating: 4.7,
     isNew: true,
     category: "ao-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "6",
@@ -111,6 +186,21 @@ export const products = [
     rating: 5,
     isNew: true,
     category: "ao-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "7",
@@ -125,6 +215,21 @@ export const products = [
     rating: 4.9,
     isNew: true,
     category: "ao-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "8",
@@ -139,6 +244,21 @@ export const products = [
     rating: 4.2,
     isNew: true,
     category: "ao-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "9",
@@ -153,6 +273,21 @@ export const products = [
     rating: 4,
     isNew: true,
     category: "ao-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "10",
@@ -167,6 +302,21 @@ export const products = [
     rating: 4.4,
     isNew: true,
     category: "ao-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
 
   {
@@ -182,6 +332,21 @@ export const products = [
     rating: 4.5,
     isNew: true,
     category: "ao-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "12",
@@ -196,6 +361,21 @@ export const products = [
     rating: 5,
     isNew: true,
     category: "ao-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "13",
@@ -210,6 +390,21 @@ export const products = [
     rating: 4.3,
     isNew: true,
     category: "ao-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "14",
@@ -224,6 +419,21 @@ export const products = [
     rating: 4.1,
     isNew: true,
     category: "ao-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "15",
@@ -238,6 +448,21 @@ export const products = [
     rating: 4.7,
     isNew: true,
     category: "ao-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "16",
@@ -252,6 +477,21 @@ export const products = [
     rating: 5,
     isNew: true,
     category: "ao-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "17",
@@ -266,6 +506,21 @@ export const products = [
     rating: 4.9,
     isNew: true,
     category: "ao-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "18",
@@ -280,6 +535,21 @@ export const products = [
     rating: 4.2,
     isNew: true,
     category: "ao-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "19",
@@ -294,6 +564,21 @@ export const products = [
     rating: 4,
     isNew: true,
     category: "ao-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "20",
@@ -308,6 +593,21 @@ export const products = [
     rating: 4.4,
     isNew: true,
     category: "ao-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "21",
@@ -322,6 +622,21 @@ export const products = [
     rating: 4.5,
     isNew: true,
     category: "ao-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "22",
@@ -336,6 +651,21 @@ export const products = [
     rating: 5,
     isNew: true,
     category: "ao-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "23",
@@ -350,6 +680,21 @@ export const products = [
     rating: 4.3,
     isNew: true,
     category: "ao-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "24",
@@ -364,6 +709,21 @@ export const products = [
     rating: 4.1,
     isNew: true,
     category: "ao-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "25",
@@ -378,6 +738,21 @@ export const products = [
     rating: 4.7,
     isNew: true,
     category: "ao-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "26",
@@ -392,6 +767,21 @@ export const products = [
     rating: 5,
     isNew: true,
     category: "ao-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "27",
@@ -406,6 +796,21 @@ export const products = [
     rating: 4.9,
     isNew: true,
     category: "ao-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "28",
@@ -420,6 +825,21 @@ export const products = [
     rating: 4.2,
     isNew: true,
     category: "ao-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "29",
@@ -434,6 +854,21 @@ export const products = [
     rating: 4,
     isNew: true,
     category: "ao-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "30",
@@ -448,6 +883,21 @@ export const products = [
     rating: 4.4,
     isNew: true,
     category: "ao-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "31",
@@ -462,6 +912,21 @@ export const products = [
     rating: 4.5,
     isNew: true,
     category: "ao-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "32",
@@ -476,6 +941,21 @@ export const products = [
     rating: 5,
     isNew: true,
     category: "ao-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "33",
@@ -490,6 +970,21 @@ export const products = [
     rating: 4.3,
     isNew: true,
     category: "ao-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "34",
@@ -504,6 +999,21 @@ export const products = [
     rating: 4.1,
     isNew: true,
     category: "ao-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "35",
@@ -518,6 +1028,21 @@ export const products = [
     rating: 4.7,
     isNew: true,
     category: "ao-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "36",
@@ -532,6 +1057,21 @@ export const products = [
     rating: 5,
     isNew: true,
     category: "ao-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "37",
@@ -546,6 +1086,21 @@ export const products = [
     rating: 4.9,
     isNew: true,
     category: "ao-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "38",
@@ -560,6 +1115,21 @@ export const products = [
     rating: 4.2,
     isNew: true,
     category: "ao-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "39",
@@ -574,6 +1144,21 @@ export const products = [
     rating: 4,
     isNew: true,
     category: "ao-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "40",
@@ -588,6 +1173,21 @@ export const products = [
     rating: 4.4,
     isNew: true,
     category: "ao-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "41",
@@ -598,6 +1198,21 @@ export const products = [
     rating: 4.5,
     isNew: true,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "42",
@@ -608,6 +1223,21 @@ export const products = [
     rating: 4.7,
     isNew: false,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "43",
@@ -618,6 +1248,21 @@ export const products = [
     rating: 4.3,
     isNew: false,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "44",
@@ -628,6 +1273,21 @@ export const products = [
     rating: 4.8,
     isNew: true,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "45",
@@ -638,6 +1298,21 @@ export const products = [
     rating: 4.6,
     isNew: false,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "46",
@@ -648,6 +1323,21 @@ export const products = [
     rating: 4.9,
     isNew: false,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "47",
@@ -658,6 +1348,21 @@ export const products = [
     rating: 4.4,
     isNew: true,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "48",
@@ -668,6 +1373,21 @@ export const products = [
     rating: 4.2,
     isNew: false,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "49",
@@ -678,6 +1398,21 @@ export const products = [
     rating: 4.1,
     isNew: false,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "50",
@@ -688,6 +1423,21 @@ export const products = [
     rating: 4.7,
     isNew: true,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "51",
@@ -698,6 +1448,21 @@ export const products = [
     rating: 4.5,
     isNew: true,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "52",
@@ -708,6 +1473,21 @@ export const products = [
     rating: 4.7,
     isNew: false,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "53",
@@ -718,6 +1498,21 @@ export const products = [
     rating: 4.3,
     isNew: false,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "54",
@@ -728,6 +1523,21 @@ export const products = [
     rating: 4.8,
     isNew: true,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "55",
@@ -738,6 +1548,21 @@ export const products = [
     rating: 4.6,
     isNew: false,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "56",
@@ -748,6 +1573,21 @@ export const products = [
     rating: 4.9,
     isNew: false,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "57",
@@ -758,6 +1598,21 @@ export const products = [
     rating: 4.4,
     isNew: true,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "58",
@@ -768,6 +1623,21 @@ export const products = [
     rating: 4.2,
     isNew: false,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "59",
@@ -778,6 +1648,21 @@ export const products = [
     rating: 4.1,
     isNew: false,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "60",
@@ -788,6 +1673,21 @@ export const products = [
     rating: 4.7,
     isNew: true,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "61",
@@ -798,6 +1698,21 @@ export const products = [
     rating: 4.5,
     isNew: true,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "62",
@@ -808,6 +1723,21 @@ export const products = [
     rating: 4.7,
     isNew: false,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "63",
@@ -818,6 +1748,21 @@ export const products = [
     rating: 4.3,
     isNew: false,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "64",
@@ -828,6 +1773,21 @@ export const products = [
     rating: 4.8,
     isNew: true,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "65",
@@ -838,6 +1798,21 @@ export const products = [
     rating: 4.6,
     isNew: false,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "66",
@@ -848,6 +1823,21 @@ export const products = [
     rating: 4.9,
     isNew: false,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "67",
@@ -858,6 +1848,21 @@ export const products = [
     rating: 4.4,
     isNew: true,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "68",
@@ -868,6 +1873,21 @@ export const products = [
     rating: 4.2,
     isNew: false,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "69",
@@ -878,6 +1898,21 @@ export const products = [
     rating: 4.1,
     isNew: false,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "70",
@@ -888,6 +1923,21 @@ export const products = [
     rating: 4.7,
     isNew: true,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "71",
@@ -898,6 +1948,21 @@ export const products = [
     rating: 4.5,
     isNew: true,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "72",
@@ -908,6 +1973,21 @@ export const products = [
     rating: 4.7,
     isNew: false,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "73",
@@ -918,6 +1998,21 @@ export const products = [
     rating: 4.3,
     isNew: false,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "74",
@@ -928,6 +2023,21 @@ export const products = [
     rating: 4.8,
     isNew: true,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "75",
@@ -938,6 +2048,21 @@ export const products = [
     rating: 4.6,
     isNew: false,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "76",
@@ -948,6 +2073,21 @@ export const products = [
     rating: 4.9,
     isNew: false,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "77",
@@ -958,6 +2098,21 @@ export const products = [
     rating: 4.4,
     isNew: true,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "78",
@@ -968,6 +2123,21 @@ export const products = [
     rating: 4.2,
     isNew: false,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "79",
@@ -978,6 +2148,21 @@ export const products = [
     rating: 4.1,
     isNew: false,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "80",
@@ -988,6 +2173,21 @@ export const products = [
     rating: 4.7,
     isNew: true,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "81",
@@ -998,6 +2198,21 @@ export const products = [
     rating: 4.5,
     isNew: true,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "82",
@@ -1008,6 +2223,21 @@ export const products = [
     rating: 4.7,
     isNew: false,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "83",
@@ -1018,6 +2248,21 @@ export const products = [
     rating: 4.3,
     isNew: false,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "84",
@@ -1028,6 +2273,21 @@ export const products = [
     rating: 4.8,
     isNew: true,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "85",
@@ -1038,6 +2298,21 @@ export const products = [
     rating: 4.6,
     isNew: false,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "86",
@@ -1048,6 +2323,21 @@ export const products = [
     rating: 4.9,
     isNew: false,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "87",
@@ -1058,6 +2348,21 @@ export const products = [
     rating: 4.4,
     isNew: true,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "88",
@@ -1068,6 +2373,21 @@ export const products = [
     rating: 4.2,
     isNew: false,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "89",
@@ -1078,6 +2398,21 @@ export const products = [
     rating: 4.1,
     isNew: false,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "90",
@@ -1088,6 +2423,21 @@ export const products = [
     rating: 4.7,
     isNew: true,
     category: "quan-nam",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "91",
@@ -1098,6 +2448,21 @@ export const products = [
     rating: 4.5,
     isNew: true,
     category: "nhom-phu-kien",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "92",
@@ -1108,6 +2473,21 @@ export const products = [
     rating: 5,
     isNew: true,
     category: "nhom-phu-kien",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "93",
@@ -1118,6 +2498,21 @@ export const products = [
     rating: 4.5,
     isNew: true,
     category: "nhom-phu-kien",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "94",
@@ -1128,6 +2523,21 @@ export const products = [
     rating: 4.5,
     isNew: true,
     category: "nhom-phu-kien",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "95",
@@ -1138,6 +2548,21 @@ export const products = [
     rating: 4.5,
     isNew: true,
     category: "nhom-phu-kien",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "96",
@@ -1148,6 +2573,21 @@ export const products = [
     rating: 4.5,
     isNew: true,
     category: "nhom-phu-kien",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "97",
@@ -1158,6 +2598,21 @@ export const products = [
     rating: 4.5,
     isNew: true,
     category: "nhom-phu-kien",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "98",
@@ -1168,6 +2623,21 @@ export const products = [
     rating: 4.5,
     isNew: true,
     category: "nhom-phu-kien",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "99",
@@ -1178,6 +2648,21 @@ export const products = [
     rating: 4.5,
     isNew: true,
     category: "nhom-phu-kien",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "100",
@@ -1188,6 +2673,21 @@ export const products = [
     rating: 4.5,
     isNew: true,
     category: "nhom-phu-kien",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "101",
@@ -1198,6 +2698,21 @@ export const products = [
     rating: 4.5,
     isNew: true,
     category: "nhom-phu-kien",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "102",
@@ -1208,6 +2723,21 @@ export const products = [
     rating: 4.5,
     isNew: true,
     category: "nhom-phu-kien",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "103",
@@ -1218,6 +2748,21 @@ export const products = [
     rating: 4.5,
     isNew: true,
     category: "nhom-phu-kien",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "104",
@@ -1228,6 +2773,21 @@ export const products = [
     rating: 4.5,
     isNew: true,
     category: "nhom-phu-kien",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "105",
@@ -1238,6 +2798,21 @@ export const products = [
     rating: 4.5,
     isNew: true,
     category: "nhom-phu-kien",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "106",
@@ -1248,6 +2823,21 @@ export const products = [
     rating: 4.5,
     isNew: true,
     category: "nhom-phu-kien",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "107",
@@ -1258,6 +2848,21 @@ export const products = [
     rating: 4.5,
     isNew: true,
     category: "nhom-phu-kien",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "108",
@@ -1268,6 +2873,21 @@ export const products = [
     rating: 4.5,
     isNew: true,
     category: "nhom-phu-kien",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "109",
@@ -1278,6 +2898,21 @@ export const products = [
     rating: 4.5,
     isNew: true,
     category: "nhom-phu-kien",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
   {
     id: "110",
@@ -1288,5 +2923,20 @@ export const products = [
     rating: 4.5,
     isNew: true,
     category: "nhom-phu-kien",
+    stock: 12,
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Trắng", "Đen", "Xanh Navy"],
+    reviews: [
+      {
+        user: "Nguyễn Văn A",
+        rating: 5,
+        comment: "Áo đẹp, vải mềm, mặc rất thoải mái. Sẽ mua thêm màu khác!",
+      },
+      {
+        user: "Trần Thị B",
+        rating: 4,
+        comment: "Chất lượng tốt nhưng giao hàng hơi lâu.",
+      },
+    ],
   },
 ];

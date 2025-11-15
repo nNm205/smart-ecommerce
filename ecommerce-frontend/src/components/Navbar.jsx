@@ -1,11 +1,22 @@
 import { Search, ShoppingCart, User, Menu, X } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import DesktopMenu from "./DesktopMenu";
 import MobileMenu from "./MobileMenu";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const isLoggedIn = false;
+
+  const handleUserClick = () => {
+    if (isLoggedIn) {
+      navigate("/account");
+    } else {
+      navigate("/login");
+    }
+  };
 
   return (
     <nav className="bg-white shadow-md fixed top-0 left-0 w-full z-50">
@@ -34,7 +45,14 @@ export default function Navbar() {
             <Link to="/cart">
               <ShoppingCart className="w-7 h-7 text-gray-700 hover:text-black cursor-pointer" />
             </Link>
-            <User className="w-7 h-7 text-gray-700 hover:text-black cursor-pointer" />
+
+            <button
+              type="button"
+              onClick={handleUserClick}
+              className="p-1 rounded-full hover:bg-gray-100 transition-colors"
+            >
+              <User className="w-7 h-7 text-gray-700 hover:text-black cursor-pointer" />
+            </button>
           </div>
         </div>
       </div>
