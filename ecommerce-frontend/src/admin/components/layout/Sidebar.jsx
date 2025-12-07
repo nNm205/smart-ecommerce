@@ -14,8 +14,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, currentPath, navigate }) => {
     const menuItems = [
         { id: 'dashboard', path: '/', icon: LayoutDashboard, label: 'Dashboard' },
         { id: 'users', path: '/users', icon: Users, label: 'Khách Hàng' },
-        { id: 'orders', path: '/orders', icon: ShoppingCart, label: 'Đơn Hàng' },
         { id: 'products', path: '/products', icon: Package, label: 'Sản Phẩm' },
+        { id: 'orders', path: '/orders', icon: ShoppingCart, label: 'Đơn Hàng' },
         { id: 'chat', path: '/chat', icon: MessageSquare, label: 'Chat', badge: 3 },
         { id: 'settings', path: '/settings', icon: Settings, label: 'Cài Đặt' },
     ];
