@@ -1,11 +1,11 @@
 import { useParams } from "react-router-dom";
-import { products } from "../data/products.js";
-import ProductCard from "../components/ProductCard.jsx";
-import Navbar from "../components/Navbar.jsx";
-import Footer from "../components/Footer.jsx";
-import bannerImage1 from "../assets/images/banner_nhom_ao_nam.jpg";
-import bannerImage2 from "../assets/images/banner_nhom_quan_nam.jpg";
-import bannerImage3 from "../assets/images/banner_nhom_phu_kien.jpg";
+import { products } from "@/data/products.js";
+import ProductCard from "@/components/HomePage/ProductCard.jsx";
+import Navbar from "@/components/Shared/Navbar.jsx";
+import Footer from "@/components/Shared/Footer.jsx";
+import bannerImage1 from "@/assets/images/banner_nhom_ao_nam.jpg";
+import bannerImage2 from "@/assets/images/banner_nhom_quan_nam.jpg";
+import bannerImage3 from "@/assets/images/banner_nhom_phu_kien.jpg";
 import { Link } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 import { useState } from "react";

@@ -1,24 +1,29 @@
-import ProductImages from "@/components/ProductImages";
-import ProductInfo from "@/components/ProductInfo";
-import ProductVariants from "@/components/ProductVariants";
-import AddToCartSection from "@/components/AddToCartSection";
-import ProductDescription from "@/components/ProductDescription";
-import ProductReviews from "@/components/ProductReviews";
-import RelatedProducts from "@/components/RelatedProducts";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import ProductImages from "@/components/ProductDetailPage/ProductImages";
+import ProductInfo from "@/components/ProductDetailPage/ProductInfo";
+import ProductVariants from "@/components/ProductDetailPage/ProductVariants";
+import AddToCartSection from "@/components/ProductDetailPage/AddToCartSection";
+import ProductDescription from "@/components/ProductDetailPage/ProductDescription";
+import ProductReviews from "@/components/ProductDetailPage/ProductReviews";
+import RelatedProducts from "@/components/ProductDetailPage/RelatedProducts";
+import Navbar from "@/components/Shared/Navbar";
+import Footer from "@/components/Shared/Footer";
 
 import { useParams } from "react-router-dom";
 import { products } from "@/data/products";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-import { useCart } from "@/contexts/CartContext";
+import useCart from "@/contexts/useCart";
 
 function ProductDetailPage() {
   const { id } = useParams();
   const product = products.find((p) => p.id === id);
   const [selected, setSelected] = useState({ size: null, color: null });
   const { addToCart } = useCart();
+
+  // Scroll về đầu trang khi id thay đổi
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
 
   if (!product) {
     return (
@@ -35,63 +40,7 @@ function ProductDetailPage() {
     }
 
     addToCart(product, selected, quantity);
-    alert("Đã thêm sản phẩm vào giỏ hàng!");
   }
-
-  // return (
-  //   <div className="w-full flex flex-col bg-white min-h-screen">
-  //     <Navbar />
-
-  //     <main
-  //       className="w-full flex flex-col
-  //                   justify-center items-center
-  //                   bg-white"
-  //     >
-  //       <div
-  //         className="w-full max-w-[1700px]
-  //                     px-4 md:px-8 lg:px-12
-  //                     py-12 grid md:grid-cols-2
-  //                     gap-14"
-  //       >
-  //         <div className="flex items-start">
-  //           <ProductImages images={product.images} />
-  //         </div>
-
-  //         <div
-  //           className="flex flex-col justify-start
-  //                       items-start"
-  //         >
-  //           <ProductInfo
-  //             name={product.name}
-  //             price={product.price}
-  //             rating={product.rating}
-  //             stock={product.stock}
-  //           />
-  //           <div className="mt-6 w-full">
-  //             <ProductVariants
-  //               sizes={product.sizes}
-  //               colors={product.colors}
-  //               selected={selected}
-  //               onChange={setSelected}
-  //             />
-  //             <AddToCartSection onAddToCart={handleAddToCart} />
-  //           </div>
-  //         </div>
-  //         <div className="col-span-2 mt-10">
-  //           <ProductDescription description={product.description} />
-  //           <ProductReviews reviews={product.reviews} />
-  //           <RelatedProducts
-  //             products={products.filter(
-  //               (p) => p.category === product.category && p.id != product.id
-  //             )}
-  //           />
-  //         </div>
-  //       </div>
-  //     </main>
-
-  //     <Footer />
-  //   </div>
-  // );
 
   return (
     <div

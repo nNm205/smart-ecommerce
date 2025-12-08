@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import Navbar from "@/components/Shared/Navbar";
+import Footer from "@/components/Shared/Footer";
 import { ChevronRight } from "lucide-react";
+
 function LoginPage() {
   const [formData, setFormData] = useState({
     username: "",

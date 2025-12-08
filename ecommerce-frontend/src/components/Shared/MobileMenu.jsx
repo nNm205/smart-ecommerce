@@ -1,4 +1,3 @@
-// src/components/Navbar/MobileMenu.jsx
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";

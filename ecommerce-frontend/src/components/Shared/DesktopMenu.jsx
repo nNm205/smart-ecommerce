@@ -1,7 +1,6 @@
-// src/components/Navbar/DesktopMenu.jsx
 import { Link, NavLink } from "react-router-dom";
 import { ChevronDown } from "lucide-react";
-import { menuData } from "./menuData";
+import { menuData } from "@/data/menuData";
 
 export default function DesktopMenu() {
   return (

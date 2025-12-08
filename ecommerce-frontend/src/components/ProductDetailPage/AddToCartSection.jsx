@@ -4,17 +4,14 @@ import { useState } from "react";
 function AddToCartSection({ onAddToCart }) {
   const [quantity, setQuantity] = useState(1);
 
-  function decreaseQuantity() {
-    setQuantity((prev) => Math.max(1, prev - 1));
-  }
+  const decreaseQuantity = () => setQuantity((prev) => Math.max(1, prev - 1));
+  const increaseQuantity = () => setQuantity((prev) => prev + 1);
+  const handleAddToCartClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
 
-  function increaseQuantity() {
-    setQuantity((prev) => prev + 1);
-  }
-
-  function handleAddToCartClick() {
     onAddToCart(quantity);
-  }
+  };
 
   return (
     <div className="flex flex-col gap-4 mt-6 w-full">

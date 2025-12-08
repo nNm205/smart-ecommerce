@@ -1,11 +1,11 @@
 import { createContext, useEffect, useState } from "react";
 
-const CartContext = createContext();
+export const CartContext = createContext();
 
 export function CartProvider({ children }) {
   const [cartItems, setCartItems] = useState(() => {
-    const stored = localStorage.getItem("cartItems");
-    return stored ? JSON.parse(stored) : [];
+    const savedCart = localStorage.getItem("cart");
+    return savedCart ? JSON.parse(savedCart) : [];
   });
 
   useEffect(() => {
@@ -20,14 +20,12 @@ export function CartProvider({ children }) {
       );
 
       if (existingIndex !== -1) {
-        const updated = [...prev];
-        const newQuantity = updated[existingIndex].quantity + quantity;
-
-        updated[existingIndex].quantity = Math.min(
-          newQuantity,
-          product.stock || newQuantity
-        );
-        return updated;
+        const newItems = [...prev];
+        newItems[existingIndex] = {
+          ...newItems[existingIndex],
+          quantity: newItems[existingIndex].quantity + 1,
+        };
+        return newItems;
       }
 
       return [
@@ -36,7 +34,7 @@ export function CartProvider({ children }) {
           id: product.id,
           name: product.name,
           price: product.price,
-          image: product.images[0],
+          image: product.images?.[0] || "https://via.placeholder.com/80",
           size,
           color,
           quantity,
@@ -70,7 +68,6 @@ export function CartProvider({ children }) {
   const clearCart = () => setCartItems([]);
 
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-
   const totalPrice = cartItems.reduce(
     (sum, item) => sum + item.quantity * item.price,
     0

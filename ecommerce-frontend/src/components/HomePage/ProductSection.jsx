@@ -1,4 +1,4 @@
-import ProductCard from "./ProductCard";
+import ProductCard from "@/components/HomePage/ProductCard";
 
 function ProductSection({ title, bannerImage, products }) {
   return (

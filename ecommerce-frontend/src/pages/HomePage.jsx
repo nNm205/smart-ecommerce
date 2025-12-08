@@ -1,14 +1,15 @@
-import Navbar from "../components/Navbar.jsx";
-import Footer from "../components/Footer";
-import ProductSection from "../components/ProductSection";
-import { products } from "../data/products.js";
-import bannerImage_1 from "../assets/images/banner_hang_moi.jpg";
-import bannerImage_2 from "../assets/images/banner_ban_chay.jpg";
-import bannerImage_3 from "../assets/images/banner_ao_thun.jpg";
-import bannerImage_4 from "../assets/images/banner_quan_short.jpg";
-import BannerSlider from "../components/BannerSlider";
-import homeBanner_1 from "../assets/images/banner_1.jpg";
-import homeBanner_2 from "../assets/images/banner_2.jpg";
+import Navbar from "@/components/Shared/Navbar";
+import Footer from "@/components/Shared/Footer";
+import ProductSection from "@/components/HomePage/ProductSection.jsx";
+import { products } from "@/data/products";
+import bannerImage_1 from "@/assets/images/banner_hang_moi.jpg";
+import bannerImage_2 from "@/assets/images/banner_ban_chay.jpg";
+import bannerImage_3 from "@/assets/images/banner_ao_thun.jpg";
+import bannerImage_4 from "@/assets/images/banner_quan_short.jpg";
+import BannerSlider from "@/components/HomePage/BannerSlider";
+import homeBanner_1 from "@/assets/images/banner_1.jpg";
+import homeBanner_2 from "@/assets/images/banner_2.jpg";
+import Chatbot from "@/components/Shared/Chatbot.jsx";
 
 function HomePage() {
   const homeBannerImages = [homeBanner_1, homeBanner_2];
@@ -53,6 +54,7 @@ function HomePage() {
         </div>
       </main>
 
+      <Chatbot />
       {/* Footer */}
       <Footer />
     </div>

@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
-import ProductCard from "./ProductCard";
-import { products as allProducts } from "../data/products.js";
+import ProductCard from "@/components/HomePage/ProductCard.jsx";
+import { products as allProducts } from "@/data/products";
 
 function NewProductsList({ products = null, initialCount = 8, onAddToCart }) {
   const source = products ?? allProducts;
