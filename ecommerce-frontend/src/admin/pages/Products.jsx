@@ -1,36 +1,39 @@
+// pages/Products.jsx - Shop Layout Style
 import React, { useState } from 'react';
-import { Search } from 'lucide-react';
+import { Search, Maximize2, RefreshCw, Edit2, Trash2 } from 'lucide-react';
 import Modal from '../components/common/Modal';
 import ConfirmDialog from '../components/common/ConfirmDialog';
 import ImageUpload from '../components/common/ImageUpload';
+import ProductDetail from '../components/products/ProductDetail';
 import useModal from '../hooks/useModal';
 
 const Products = () => {
     const [products, setProducts] = useState([
-        { id: 1, name: 'iPhone 15 Pro', price: '₫29,990,000', stock: 45, category: 'Điện thoại', image: 'https://via.placeholder.com/150' },
-        { id: 2, name: 'MacBook Air M2', price: '₫28,490,000', stock: 23, category: 'Laptop', image: 'https://via.placeholder.com/150' },
-        { id: 3, name: 'AirPods Pro', price: '₫6,490,000', stock: 120, category: 'Phụ kiện', image: 'https://via.placeholder.com/150' },
-        { id: 4, name: 'iPad Air', price: '₫15,990,000', stock: 67, category: 'Tablet', image: 'https://via.placeholder.com/150' },
-        { id: 5, name: 'Apple Watch', price: '₫10,990,000', stock: 89, category: 'Phụ kiện', image: 'https://via.placeholder.com/150' },
-        { id: 6, name: 'Magic Keyboard', price: '₫3,490,000', stock: 156, category: 'Phụ kiện', image: 'https://via.placeholder.com/150' },
-        { id: 7, name: 'iPhone 14', price: '₫19,990,000', stock: 34, category: 'Điện thoại', image: 'https://via.placeholder.com/150' },
-        { id: 8, name: 'MacBook Pro', price: '₫45,990,000', stock: 12, category: 'Laptop', image: 'https://via.placeholder.com/150' },
+        { id: 1, name: 'iPhone 15 Pro', price: '29,990,000', oldPrice: '32,990,000', stock: 45, category: 'Điện thoại', image: 'https://via.placeholder.com/300', rating: 5, reviews: 128 },
+        { id: 2, name: 'MacBook Air M2', price: '28,490,000', oldPrice: null, stock: 23, category: 'Laptop', image: 'https://via.placeholder.com/300', rating: 5, reviews: 95 },
+        { id: 3, name: 'AirPods Pro', price: '6,490,000', oldPrice: '7,490,000', stock: 120, category: 'Phụ kiện', image: 'https://via.placeholder.com/300', rating: 4, reviews: 203 },
+        { id: 4, name: 'iPad Air', price: '15,990,000', oldPrice: null, stock: 67, category: 'Tablet', image: 'https://via.placeholder.com/300', rating: 5, reviews: 87 },
+        { id: 5, name: 'Apple Watch Series 9', price: '10,990,000', oldPrice: '12,990,000', stock: 89, category: 'Phụ kiện', image: 'https://via.placeholder.com/300', rating: 5, reviews: 156 },
+        { id: 6, name: 'Magic Keyboard', price: '3,490,000', oldPrice: null, stock: 156, category: 'Phụ kiện', image: 'https://via.placeholder.com/300', rating: 4, reviews: 64 },
+        { id: 7, name: 'iPhone 14', price: '19,990,000', oldPrice: '24,990,000', stock: 34, category: 'Điện thoại', image: 'https://via.placeholder.com/300', rating: 5, reviews: 142 },
+        { id: 8, name: 'MacBook Pro M3', price: '45,990,000', oldPrice: null, stock: 12, category: 'Laptop', image: 'https://via.placeholder.com/300', rating: 5, reviews: 78 },
     ]);
 
-    // Modals
+    const [selectedCategory, setSelectedCategory] = useState('all');
+    const [selectedProduct, setSelectedProduct] = useState(null);
+    const [searchTerm, setSearchTerm] = useState('');
+
+    const categories = [
+        { id: 'all', name: 'Tất cả sản phẩm', count: products.length },
+        { id: 'Điện thoại', name: 'Điện thoại', count: products.filter(p => p.category === 'Điện thoại').length },
+        { id: 'Laptop', name: 'Laptop', count: products.filter(p => p.category === 'Laptop').length },
+        { id: 'Phụ kiện', name: 'Phụ kiện', count: products.filter(p => p.category === 'Phụ kiện').length },
+        { id: 'Tablet', name: 'Tablet', count: products.filter(p => p.category === 'Tablet').length },
+    ];
+
     const editModalHook = useModal();
-    const isEditOpen = editModalHook.isOpen;
-    const editData = editModalHook.modalData;
-    const openEdit = editModalHook.openModal;
-    const closeEdit = editModalHook.closeModal;
-
     const addModalHook = useModal();
-    const isAddOpen = addModalHook.isOpen;
-    const openAdd = addModalHook.openModal;
-    const closeAdd = addModalHook.closeModal;
-
     const [deleteDialog, setDeleteDialog] = useState({ isOpen: false, product: null });
-
     const [formData, setFormData] = useState({
         name: '',
         price: '',
@@ -39,7 +42,18 @@ const Products = () => {
         image: null,
     });
 
-    const handleEdit = (product) => {
+    const filteredProducts = products.filter(product => {
+        const matchCategory = selectedCategory === 'all' || product.category === selectedCategory;
+        const matchSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
+        return matchCategory && matchSearch;
+    });
+
+    const handleProductClick = (product) => {
+        setSelectedProduct(product);
+    };
+
+    const handleEdit = (product, e) => {
+        e.stopPropagation();
         setFormData({
             name: product.name,
             price: product.price,
@@ -47,7 +61,7 @@ const Products = () => {
             category: product.category,
             image: product.image,
         });
-        openEdit(product);
+        editModalHook.openModal(product);
     };
 
     const handleAdd = () => {
@@ -58,11 +72,12 @@ const Products = () => {
             category: 'Điện thoại',
             image: null,
         });
-        openAdd();
+        addModalHook.openModal();
     };
 
-    const handleDelete = (product) => {
-        setDeleteDialog({ isOpen: true, product: product });
+    const handleDelete = (product, e) => {
+        e.stopPropagation();
+        setDeleteDialog({ isOpen: true, product });
     };
 
     const confirmDelete = () => {
@@ -77,85 +92,179 @@ const Products = () => {
             id: Date.now(),
             name: formData.name,
             price: formData.price,
+            oldPrice: null,
             stock: parseInt(formData.stock),
             category: formData.category,
-            image: formData.image || 'https://via.placeholder.com/150',
+            image: formData.image || 'https://via.placeholder.com/300',
+            rating: 5,
+            reviews: 0,
         };
         setProducts([...products, newProduct]);
-        closeAdd();
+        addModalHook.closeModal();
     };
 
     const handleSaveEdit = () => {
-        if (editData) {
+        if (editModalHook.modalData) {
             setProducts(products.map(p =>
-                p.id === editData.id
+                p.id === editModalHook.modalData.id
                     ? { ...p, name: formData.name, price: formData.price, stock: parseInt(formData.stock), category: formData.category, image: formData.image || p.image }
                     : p
             ));
-            closeEdit();
+            editModalHook.closeModal();
         }
     };
 
+    const renderStars = (rating) => {
+        return (
+            <div className="flex items-center gap-1">
+                {[...Array(5)].map((_, i) => (
+                    <svg key={i} className={`w-4 h-4 ${i < rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`} viewBox="0 0 20 20">
+                        <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                    </svg>
+                ))}
+            </div>
+        );
+    };
+
     return (
-        <div>
-            <div className="mb-6">
-                <h2 className="text-2xl font-bold text-gray-800">Sản Phẩm</h2>
-                <p className="text-gray-600">Quản lý danh mục sản phẩm</p>
+        <div className="flex gap-6">
+            {/* Sidebar */}
+            <div className="w-80 flex-shrink-0">
+                <div className="bg-white rounded-lg shadow p-6">
+                    <h3 className="text-lg font-bold text-gray-800 mb-4">Danh Mục Sản Phẩm</h3>
+                    <div className="space-y-2">
+                        {categories.map((category) => (
+                            <button
+                                key={category.id}
+                                onClick={() => setSelectedCategory(category.id)}
+                                className={`w-full flex items-center justify-between px-4 py-3 rounded-lg transition-colors text-left ${
+                                    selectedCategory === category.id
+                                        ? 'bg-blue-50 text-blue-600 font-medium'
+                                        : 'text-gray-700 hover:bg-gray-50'
+                                }`}
+                            >
+                <span className="flex items-center gap-2">
+                  <span className={selectedCategory === category.id ? '' : 'text-gray-400'}>›</span>
+                    {category.name}
+                </span>
+                                <span className="text-gray-500">{category.count}</span>
+                            </button>
+                        ))}
+                    </div>
+                </div>
             </div>
 
-            <div className="bg-white rounded-lg shadow overflow-hidden">
-                <div className="p-6 border-b border-gray-200 flex items-center justify-between">
-                    <div className="relative flex-1 max-w-md">
-                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
-                        <input
-                            type="text"
-                            placeholder="Tìm kiếm sản phẩm..."
-                            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                    </div>
-                    <button
-                        onClick={handleAdd}
-                        className="ml-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
-                    >
-                        + Thêm Sản Phẩm
-                    </button>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-6">
-                    {products.map((product) => (
-                        <div key={product.id} className="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-lg transition-shadow">
-                            <img
-                                src={product.image}
-                                alt={product.name}
-                                className="w-full h-40 object-cover rounded-lg mb-4"
+            {/* Main Content */}
+            <div className="flex-1">
+                {/* Header */}
+                <div className="bg-white rounded-lg shadow p-6 mb-6">
+                    <div className="flex items-center justify-between">
+                        <div className="relative flex-1 max-w-md">
+                            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+                            <input
+                                type="text"
+                                placeholder="Tìm kiếm"
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
-                            <h3 className="font-semibold text-gray-800 mb-2">{product.name}</h3>
-                            <p className="text-sm text-gray-500 mb-2">{product.category}</p>
-                            <p className="text-lg font-bold text-blue-600 mb-2">{product.price}</p>
-                            <p className="text-sm text-gray-600 mb-4">Kho: {product.stock}</p>
-                            <div className="flex gap-2">
-                                <button
-                                    onClick={() => handleEdit(product)}
-                                    className="flex-1 px-3 py-2 bg-blue-500 text-white text-sm rounded hover:bg-blue-600 transition-colors"
-                                >
-                                    Sửa
-                                </button>
-                                <button
-                                    onClick={() => handleDelete(product)}
-                                    className="flex-1 px-3 py-2 bg-red-500 text-white text-sm rounded hover:bg-red-600 transition-colors"
-                                >
-                                    Xóa
-                                </button>
-                            </div>
                         </div>
-                    ))}
+                        <div className="flex items-center gap-4 ml-6">
+                            <span className="text-gray-600"> 1–{filteredProducts.length} trong số {filteredProducts.length} </span>
+                            <button
+                                onClick={handleAdd}
+                                className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                            >
+                                Tải sản phẩm lên
+                            </button>
+                        </div>
+                    </div>
                 </div>
+
+                {/* Products Grid */}
+                {filteredProducts.length === 0 ? (
+                    <div className="bg-white rounded-lg shadow p-12 text-center">
+                        <p className="text-gray-500">Không tìm thấy sản phẩm nào</p>
+                    </div>
+                ) : (
+                    <div className="grid grid-cols-3 gap-6">
+                        {filteredProducts.map((product) => (
+                            <div
+                                key={product.id}
+                                className="bg-white rounded-lg shadow hover:shadow-xl transition-all group cursor-pointer overflow-hidden"
+                            >
+                                <div className="relative overflow-hidden bg-gray-100">
+                                    <img
+                                        src={product.image}
+                                        alt={product.name}
+                                        className="w-full h-72 object-cover group-hover:scale-110 transition-transform duration-300"
+                                        onClick={() => handleProductClick(product)}
+                                    />
+                                    <div className="absolute top-4 right-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <button
+                                            onClick={() => handleProductClick(product)}
+                                            className="p-2 bg-white rounded-full shadow hover:bg-gray-100 transition-colors"
+                                        >
+                                            <Maximize2 size={20} className="text-gray-600" />
+                                        </button>
+                                        <button className="p-2 bg-white rounded-full shadow hover:bg-gray-100 transition-colors">
+                                            <RefreshCw size={20} className="text-gray-600" />
+                                        </button>
+                                    </div>
+                                    <div className="absolute top-4 left-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <button
+                                            onClick={(e) => handleEdit(product, e)}
+                                            className="p-2 bg-blue-500 text-white rounded-full shadow hover:bg-blue-600 transition-colors"
+                                            title="Sửa"
+                                        >
+                                            <Edit2 size={16} />
+                                        </button>
+                                        <button
+                                            onClick={(e) => handleDelete(product, e)}
+                                            className="p-2 bg-red-500 text-white rounded-full shadow hover:bg-red-600 transition-colors"
+                                            title="Xóa"
+                                        >
+                                            <Trash2 size={16} />
+                                        </button>
+                                    </div>
+                                </div>
+                                <div className="p-5">
+                                    <h3
+                                        className="font-semibold text-gray-800 mb-2 hover:text-blue-600 transition-colors cursor-pointer"
+                                        onClick={() => handleProductClick(product)}
+                                    >
+                                        {product.name}
+                                    </h3>
+                                    <div className="flex items-center gap-2 mb-3">
+                                        {product.oldPrice && (
+                                            <span className="text-gray-400 line-through text-sm">₫{product.oldPrice}</span>
+                                        )}
+                                        <span className="text-blue-600 font-bold text-lg">₫{product.price}</span>
+                                    </div>
+                                    <div className="flex items-center gap-2 mb-4">
+                                        {renderStars(product.rating)}
+                                        <span className="text-sm text-gray-500">({product.reviews})</span>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
             </div>
+
+            {/* Product Detail Modal */}
+            {selectedProduct && (
+                <ProductDetail
+                    product={selectedProduct}
+                    onClose={() => setSelectedProduct(null)}
+                />
+            )}
 
             {/* Edit Modal */}
-            {isEditOpen && (
+            {editModalHook.isOpen && (
                 <Modal
-                    isOpen={isEditOpen}
-                    onClose={closeEdit}
+                    isOpen={editModalHook.isOpen}
+                    onClose={editModalHook.closeModal}
                     title="Chỉnh Sửa Sản Phẩm"
                     size="md"
                 >
@@ -177,12 +286,12 @@ const Products = () => {
                             />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">Giá</label>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">Giá (VND)</label>
                             <input
                                 type="text"
                                 value={formData.price}
                                 onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                                placeholder="₫29,990,000"
+                                placeholder="29,990,000"
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
                         </div>
@@ -210,7 +319,7 @@ const Products = () => {
                         </div>
                         <div className="flex justify-end gap-3 pt-4">
                             <button
-                                onClick={closeEdit}
+                                onClick={editModalHook.closeModal}
                                 className="px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
                             >
                                 Hủy
@@ -227,10 +336,10 @@ const Products = () => {
             )}
 
             {/* Add Modal */}
-            {isAddOpen && (
+            {addModalHook.isOpen && (
                 <Modal
-                    isOpen={isAddOpen}
-                    onClose={closeAdd}
+                    isOpen={addModalHook.isOpen}
+                    onClose={addModalHook.closeModal}
                     title="Thêm Sản Phẩm Mới"
                     size="md"
                 >
@@ -253,12 +362,12 @@ const Products = () => {
                             />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">Giá</label>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">Giá (VND)</label>
                             <input
                                 type="text"
                                 value={formData.price}
                                 onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                                placeholder="₫29,990,000"
+                                placeholder="29,990,000"
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
                         </div>
@@ -287,7 +396,7 @@ const Products = () => {
                         </div>
                         <div className="flex justify-end gap-3 pt-4">
                             <button
-                                onClick={closeAdd}
+                                onClick={addModalHook.closeModal}
                                 className="px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
                             >
                                 Hủy

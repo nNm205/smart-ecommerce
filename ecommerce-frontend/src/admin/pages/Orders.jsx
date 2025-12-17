@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, Printer } from 'lucide-react';
+import { Search, Eye } from 'lucide-react';
 import Modal from '../components/common/Modal';
 import useModal from '../hooks/useModal';
 
@@ -95,7 +95,6 @@ const Orders = () => {
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sản Phẩm</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Số Tiền</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Trạng Thái</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Thao Tác</th>
                         </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-200">
@@ -120,13 +119,7 @@ const Orders = () => {
                                         onClick={() => handleView(order)}
                                         className="text-blue-600 hover:text-blue-800 mr-3"
                                     >
-                                        Xem
-                                    </button>
-                                    <button
-                                        onClick={() => handlePrint(order)}
-                                        className="text-green-600 hover:text-green-800"
-                                    >
-                                        In
+                                        <Eye size={18} />
                                     </button>
                                 </td>
                             </tr>
@@ -186,7 +179,7 @@ const Orders = () => {
                                         handleUpdateStatus(viewData.id, 'Đang xử lý');
                                         closeView();
                                     }}
-                                    className="flex-1 px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-colors"
+                                    className="flex-1 px-4 py-2 bg-yellow-100 text-yellow-800 rounded-lg hover:bg-yellow-600 transition-colors"
                                 >
                                     Đang xử lý
                                 </button>
@@ -195,7 +188,7 @@ const Orders = () => {
                                         handleUpdateStatus(viewData.id, 'Đang giao');
                                         closeView();
                                     }}
-                                    className="flex-1 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+                                    className="flex-1 px-4 py-2 bg-blue-100 text-blue-800 rounded-lg hover:bg-blue-600 transition-colors"
                                 >
                                     Đang giao
                                 </button>
@@ -204,28 +197,13 @@ const Orders = () => {
                                         handleUpdateStatus(viewData.id, 'Hoàn thành');
                                         closeView();
                                     }}
-                                    className="flex-1 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
+                                    className="flex-1 px-4 py-2 bg-green-100 text-green-800 rounded-lg hover:bg-green-600 transition-colors"
                                 >
                                     Hoàn thành
                                 </button>
                             </div>
                         </div>
 
-                        <div className="border-t pt-4 flex justify-end gap-3">
-                            <button
-                                onClick={() => handlePrint(viewData)}
-                                className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors flex items-center gap-2"
-                            >
-                                <Printer size={18} />
-                                In Đơn Hàng
-                            </button>
-                            <button
-                                onClick={closeView}
-                                className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
-                            >
-                                Đóng
-                            </button>
-                        </div>
                     </div>
                 </Modal>
             )}
