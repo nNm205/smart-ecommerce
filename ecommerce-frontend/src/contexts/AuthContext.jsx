@@ -1,37 +1,73 @@
 import { createContext, useEffect, useState } from "react";
 
-const AuthContext = createContext();
+export const AuthContext = createContext();
 
-export default function AuthProvider({ children }) {
-  const [token, setToken] = useState(() => localStorage.getItem("token"));
-  const [user, setUser] = useState(null);
+export function AuthProvider({ children }) {
+  const [auth, setAuth] = useState({
+    email: "",
+    fullName: "",
+    role: "",
+    userId: null,
+    isAuthenticated: false,
+  });
 
   useEffect(() => {
-    if (token) {
-      // fetch user profile when token present
-      fetch("/api/user/me", { headers: { Authorization: `Bearer ${token}` } })
-        .then((r) => (r.ok ? r.json() : null))
-        .then((data) => data && setUser(data))
-        .catch(() => {});
-    } else {
-      setUser(null);
-    }
-  }, [token]);
+    const accessToken = localStorage.getItem("accessToken");
+    const userStr = localStorage.getItem("user");
 
-  const login = (t, userData) => {
-    setToken(t);
-    localStorage.setItem("token", t);
-    setUser(userData);
+    if (accessToken && userStr) {
+      try {
+        const user = JSON.parse(userStr);
+        setAuth({
+          email: user.email || "",
+          fullName: user.fullName || "",
+          phone: user.phone || "",
+          userId: user.userId || "",
+          isAuthenticated: true,
+        });
+      } catch (error) {
+        console.error("Lỗi parse user data:", error);
+        logout();
+      }
+    }
+  }, []);
+
+  const login = (email, fullName, role, userId) => {
+    const authData = {
+      email,
+      fullName,
+      role,
+      userId,
+      isAuthenticated: true,
+    };
+
+    setAuth(authData);
+
+    const userData = {
+      email,
+      fullName,
+      role,
+      userId,
+    };
+    localStorage.setItem("user", JSON.stringify(userData));
   };
 
   const logout = () => {
-    setToken(null);
-    localStorage.removeItem("token");
-    setUser(null);
+    setAuth({
+      email: "",
+      fullName: "",
+      role: "",
+      userId: null,
+      isAuthenticated: false,
+    });
+
+    localStorage.removeItem("user");
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
   };
 
   return (
-    <AuthContext.Provider value={{ token, user, setUser, login, logout }}>
+    <AuthContext.Provider value={{ auth, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

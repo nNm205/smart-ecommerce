@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Eye, EyeOff } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { Eye, EyeOff, ChevronRight } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Navbar from "@/components/Shared/Navbar";
 import Footer from "@/components/Shared/Footer";
-import { ChevronRight } from "lucide-react";
+import { authService } from "@/services/authService";
+import useAuth from "@/contexts/useAuth";
 
 function LoginPage() {
   const [formData, setFormData] = useState({
@@ -13,9 +14,15 @@ function LoginPage() {
 
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({});
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const location = useLocation();
+  const navigate = useNavigate();
   const isLogin = location.pathname === "/login";
+
+  const { login } = useAuth();
 
   const validateForm = () => {
     const newErrors = {};
@@ -44,12 +51,68 @@ function LoginPage() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (validateForm()) {
-      console.log("Đăng nhập:", formData);
-      alert("Đăng nhập thành công!");
+    setSuccessMessage("");
+    setErrorMessage("");
+
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const responseData = await authService.login({
+        email: formData.username,
+        password: formData.password,
+      });
+
+      console.log("Đăng nhập thành công:", responseData);
+
+      const { email, role, fullName, accessToken, refreshToken, userId } =
+        responseData;
+
+      localStorage.setItem("accessToken", accessToken);
+
+      if (refreshToken) {
+        localStorage.setItem("refreshToken", refreshToken);
+      }
+
+      const userData = {
+        userId,
+        email,
+        fullName,
+        role,
+      };
+      localStorage.setItem("user", JSON.stringify(userData));
+
+      login(email, fullName, role, userId);
+
+      setSuccessMessage("Đăng nhập thành công! Đang chuyển hướng...");
+
+      setTimeout(() => {
+        navigate("/", { replace: true });
+      }, 1500);
+    } catch (error) {
+      console.error("Lỗi khi đăng nhập:", error);
+
+      if (error.response?.data?.message) {
+        setErrorMessage(error.response.data.message);
+      } else if (error.response?.status === 401) {
+        setErrorMessage("Email/Số điện thoại hoặc mật khẩu không đúng");
+      } else if (error.response?.status === 400) {
+        setErrorMessage("Thông tin đăng nhập không hợp lệ");
+      } else if (error.request) {
+        setErrorMessage(
+          "Không thể kết nối đến server. Vui lòng kiểm tra kết nối!"
+        );
+      } else {
+        setErrorMessage("Có lỗi xảy ra. Vui lòng thử lại sau.");
+      }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -59,11 +122,20 @@ function LoginPage() {
       ...prev,
       [name]: value,
     }));
+
     if (errors[name]) {
       setErrors((prev) => ({
         ...prev,
         [name]: "",
       }));
+    }
+
+    if (errorMessage) {
+      setErrorMessage("");
+    }
+
+    if (successMessage) {
+      setSuccessMessage("");
     }
   };
 
@@ -88,12 +160,8 @@ function LoginPage() {
         <ChevronRight size={14} />
         <span className="text-gray-800 font-medium">Đăng nhập</span>
       </div>
-      <main
-        className="flex-1 flex 
-                      items-center 
-                      justify-center 
-                      bg-gray-50 p-4"
-      >
+
+      <main className="flex-1 flex items-center justify-center bg-gray-50 p-4">
         <div className="bg-white w-full max-w-xl">
           <div className="text-center pt-8 pb-6">
             <h1 className="text-2xl font-bold text-gray-800 tracking-wide">
@@ -104,8 +172,7 @@ function LoginPage() {
           <div className="flex border-b border-gray-200">
             <Link
               to="/login"
-              className={`flex-1 py-4 text-center font-bold transition-all 
-              ${
+              className={`flex-1 py-4 text-center font-bold transition-all ${
                 isLogin
                   ? "text-black border-b-2 border-black"
                   : "text-gray-400 hover:text-gray-600"
@@ -115,8 +182,7 @@ function LoginPage() {
             </Link>
             <Link
               to="/register"
-              className={`flex-1 py-4 text-center font-bold transition-all 
-              ${
+              className={`flex-1 py-4 text-center font-bold transition-all ${
                 !isLogin
                   ? "text-black border-b-2 border-black"
                   : "text-gray-400 hover:text-gray-600"
@@ -127,23 +193,40 @@ function LoginPage() {
           </div>
 
           <div className="p-8">
-            <div className="space-y-6">
+            {/* Hiển thị thông báo thành công */}
+            {successMessage && (
+              <div className="mb-4 p-3 bg-green-100 border border-green-400 text-green-700 rounded">
+                {successMessage}
+              </div>
+            )}
+
+            {/* Hiển thị thông báo lỗi */}
+            {errorMessage && (
+              <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+                {errorMessage}
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} className="space-y-4">
+              {/* Input Username (Email hoặc SĐT) */}
               <div>
                 <input
                   type="text"
                   name="username"
                   value={formData.username}
                   onChange={handleChange}
-                  className={`w-full px-4 py-3 border 
-                  ${errors.username ? "border-red-500" : "border-gray-300"} 
-                  focus:outline-none focus:border-black transition`}
+                  className={`w-full px-4 py-3 border ${
+                    errors.username ? "border-red-500" : "border-gray-300"
+                  } focus:outline-none focus:border-black transition`}
                   placeholder="Nhập số điện thoại hoặc email"
+                  disabled={isLoading}
                 />
                 {errors.username && (
                   <p className="text-red-500 text-sm mt-1">{errors.username}</p>
                 )}
               </div>
 
+              {/* Input Password */}
               <div>
                 <div className="relative">
                   <input
@@ -155,11 +238,13 @@ function LoginPage() {
                       errors.password ? "border-red-500" : "border-gray-300"
                     } focus:outline-none focus:border-black transition pr-12`}
                     placeholder="Mật khẩu"
+                    disabled={isLoading}
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                    disabled={isLoading}
+                    className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 disabled:cursor-not-allowed"
                   >
                     {showPassword ? (
                       <EyeOff className="h-5 w-5" />
@@ -173,19 +258,29 @@ function LoginPage() {
                 )}
               </div>
 
+              {/* Nút Đăng nhập */}
               <button
-                onClick={handleSubmit}
-                className="w-full bg-black text-white py-3 font-bold hover:bg-gray-800 transition"
+                type="submit"
+                disabled={isLoading}
+                className={`w-full py-3 font-bold transition ${
+                  isLoading
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-black text-white hover:bg-gray-800"
+                }`}
               >
-                ĐĂNG NHẬP
+                {isLoading ? "ĐANG ĐĂNG NHẬP..." : "ĐĂNG NHẬP"}
               </button>
 
+              {/* Link Quên mật khẩu */}
               <div className="text-center">
-                <a href="#" className="text-sm text-gray-600 hover:text-black">
+                <Link
+                  to="/forgot-password"
+                  className="text-sm text-gray-600 hover:text-black transition"
+                >
                   Quên mật khẩu?
-                </a>
+                </Link>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </main>

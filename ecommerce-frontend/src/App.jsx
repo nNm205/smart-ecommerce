@@ -8,8 +8,12 @@ import CategoryPage from "@/pages/CategoryPage";
 import ProductDetailPage from "@/pages/ProductDetailPage";
 import CheckoutPage from "@/pages/CheckoutPage";
 import OrderSuccessPage from "@/pages/OrderSuccessPage";
+import ForgotPasswordPage from "@/pages/ForgotPasswordPage";
+import { useTokenRefresh } from "./hooks/useTokenRefresh";
 
 function App() {
+  useTokenRefresh(60);
+
   return (
     <>
       <div className="pt-16">
@@ -23,6 +27,7 @@ function App() {
           <Route path="/product/:id" element={<ProductDetailPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/order-success" element={<OrderSuccessPage />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         </Routes>
       </div>
     </>

@@ -1,24 +1,40 @@
-import { useState } from "react";
-import { validateImageFile } from "@/utils/profileValidation";
-import { validateProfileForm } from "@/utils/profileValidation";
+import { useState, useEffect } from "react";
+import {
+  validateImageFile,
+  validateProfileForm,
+} from "@/utils/profileValidation";
 
 export function useProfileForm(initialUser) {
   const [formData, setFormData] = useState({
-    name: initialUser.name,
-    email: initialUser.email,
-    phone: initialUser.phone,
-    avatar: initialUser.avatar,
+    name: initialUser.name || "",
+    email: initialUser.email || "",
+    phone: initialUser.phone || "",
+    avatar: initialUser.avatar || "",
   });
-
-  const [originalData] = useState({
-    name: initialUser.name,
-    email: initialUser.email,
-    phone: initialUser.phone,
-    avatar: initialUser.avatar,
+  const [originalData, setOriginalData] = useState({
+    name: initialUser.name || "",
+    email: initialUser.email || "",
+    phone: initialUser.phone || "",
+    avatar: initialUser.avatar || "",
   });
-
   const [previewImage, setPreviewImage] = useState(null);
   const [hasChanges, setHasChanges] = useState(false);
+
+  useEffect(() => {
+    if (!initialUser) return;
+
+    const normalizedUser = {
+      name: initialUser.name || "",
+      email: initialUser.email || "",
+      phone: initialUser.phone || "",
+      avatar: initialUser.avatar || "",
+    };
+
+    setFormData(normalizedUser);
+    setOriginalData(normalizedUser);
+    setPreviewImage(null);
+    setHasChanges(false);
+  }, [initialUser]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -29,7 +45,6 @@ export function useProfileForm(initialUser) {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
-
     if (!validateImageFile(file)) return;
 
     const reader = new FileReader();
@@ -43,17 +58,18 @@ export function useProfileForm(initialUser) {
   const handleSave = () => {
     if (!validateProfileForm(formData)) return;
 
-    console.log("Lưu thông tin:", {
+    const updatedData = {
       ...formData,
       avatar: previewImage || formData.avatar,
-    });
+    };
 
-    if (previewImage) {
-      setFormData((prev) => ({ ...prev, avatar: previewImage }));
-      setPreviewImage(null);
-    }
+    console.log("Lưu thông tin:", updatedData);
 
+    setFormData(updatedData);
+    setOriginalData(updatedData);
+    setPreviewImage(null);
     setHasChanges(false);
+
     alert("Cập nhật thông tin thành công!");
   };
 

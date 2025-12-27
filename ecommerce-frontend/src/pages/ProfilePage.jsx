@@ -3,14 +3,18 @@ import Navbar from "@/components/Shared/Navbar";
 import Footer from "@/components/Shared/Footer";
 import ProfileTab from "@/components/Profile/ProfileTab";
 import OrdersTab from "@/components/Orders/OrdersTab";
+import LogoutTab from "@/components/LogoutTab";
 import AddressesTab from "@/components/Addresses/AddressesTab";
 import SecurityTab from "@/components/Security/SecurityTab";
 import { ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import useAuth from "@/contexts/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const MAIN_TABS = [
   { key: "account", label: "Tài khoản của tôi" },
   { key: "orders", label: "Đơn hàng của tôi" },
+  { key: "logout", label: "Đăng xuất" },
 ];
 
 const ACCOUNT_SUBTABS = [
@@ -35,11 +39,13 @@ export default function ProfilePage() {
   const [activeMain, setActiveMain] = useState("account");
   const [activeAccountSub, setActiveAccountSub] = useState("profile");
   const [activeOrdersSub, setActiveOrdersSub] = useState("All");
+  const { auth, logout } = useAuth();
+  const navigate = useNavigate();
 
   const user = {
-    name: "Nguyễn Nhật Minh",
-    email: "minh2m5@gmail.com",
-    phone: "0123456789",
+    name: auth.fullName,
+    email: auth.email,
+    phone: "0912345678",
     avatar: "https://i.pravatar.cc/150?img=3",
   };
 
@@ -99,7 +105,9 @@ export default function ProfilePage() {
                     <button
                       type="button"
                       onClick={() => toggleMain(t.key)}
-                      className="text-left px-3 py-2 w-full text-black text-lg font-semibold cursor-pointer"
+                      className={`text-left px-3 py-2 w-full ${
+                        t.key === "logout" ? "text-red-600" : "text-black"
+                      } text-lg font-semibold cursor-pointer`}
                     >
                       {t.label}
                     </button>
@@ -126,7 +134,9 @@ export default function ProfilePage() {
                     key={t.key}
                     type="button"
                     onClick={() => toggleMain(t.key)}
-                    className="whitespace-nowrap px-3 py-2 cursor-pointer text-black text-base font-semibold"
+                    className={`whitespace-nowrap px-3 py-2 cursor-pointer ${
+                      t.key === "logout" ? "text-red-600" : "text-black"
+                    } text-base font-semibold`}
                   >
                     {t.label}
                   </button>
@@ -168,6 +178,18 @@ export default function ProfilePage() {
                 {activeAccountSub === "addresses" && <AddressesTab />}
                 {activeAccountSub === "security" && <SecurityTab />}
               </div>
+            )}
+            {activeMain === "logout" && (
+              <LogoutTab
+                onConfirm={() => {
+                  logout();
+                  navigate("/", { replace: true });
+                }}
+                onCancel={() => {
+                  setActiveMain("account");
+                  setActiveAccountSub("profile");
+                }}
+              />
             )}
           </section>
         </div>

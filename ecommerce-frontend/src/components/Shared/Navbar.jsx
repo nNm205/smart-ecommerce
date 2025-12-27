@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import DesktopMenu from "@/components/Shared/DesktopMenu";
 import MobileMenu from "@/components/Shared/MobileMenu";
 import useCart from "@/contexts/useCart";
+import useAuth from "@/contexts/useAuth";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -12,8 +13,8 @@ export default function Navbar() {
   const navigate = useNavigate();
   const searchInputRef = useRef(null);
 
-  const isLoggedIn = true;
-
+  const { auth } = useAuth();
+  const isLoggedIn = auth.isAuthenticated;
   const { totalItems } = useCart();
 
   useEffect(() => {
@@ -121,13 +122,51 @@ export default function Navbar() {
               )}
             </Link>
 
-            <button
+            {/* <button
               type="button"
               onClick={handleUserClick}
               className="p-1 rounded-full hover:bg-gray-100 transition-colors"
             >
               <User className="w-7 h-7 text-gray-700 hover:text-black cursor-pointer" />
-            </button>
+            </button> */}
+
+            <div className="relative group">
+              <button
+                type="button"
+                onClick={handleUserClick}
+                className="flex items-center gap-2 p-1 rounded-full hover:bg-gray-100 transition-colors"
+              >
+                <User className="w-7 h-7 text-gray-700 hover:text-black cursor-pointer" />
+              </button>
+
+              {isLoggedIn && auth.fullName && (
+                <div
+                  className="absolute 
+                              left-1/2 
+                              -translate-x-1/2 
+                              mt-4
+                              max-w-xs 
+                              whitespace-normal
+                              text-center  
+                              bg-white 
+                              border 
+                              border-gray-200 
+                              shadow-md 
+                              rounded-md 
+                              px-4 py-2 
+                              text-sm 
+                              text-gray-700
+                              opacity-0 
+                              group-hover:opacity-100 
+                              transition"
+                >
+                  <div className="whitespace-nowrap">Xin chào,</div>
+                  <div className="font-semibold break-words">
+                    {auth.fullName}
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

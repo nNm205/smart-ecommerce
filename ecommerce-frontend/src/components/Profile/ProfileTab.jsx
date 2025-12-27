@@ -5,14 +5,6 @@ import ProfileForm from "@/components/Profile/ProfileForm";
 import ProfileActionButtons from "@/components/Profile/ProfileActionButtons";
 
 export default function ProfileTab({ user = {} }) {
-  const defaultUser = {
-    name: user.name || "Người dùng",
-    email: user.email || "user@example.com",
-    phone: user.phone || "0123456789",
-    avatar:
-      user.avatar || "https://api.dicebear.com/7.x/avataaars/svg?seed=default",
-  };
-
   const {
     formData,
     previewImage,
@@ -21,7 +13,7 @@ export default function ProfileTab({ user = {} }) {
     handleImageChange,
     handleSave,
     handleCancel,
-  } = useProfileForm(defaultUser);
+  } = useProfileForm(user);
 
   return (
     <div className="flex flex-col items-center w-full">
