@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { formatPrice } from "@/utils/productUtils";
 
 function RelatedProducts({ products }) {
   const [startIndex, setStartIndex] = useState(0);
@@ -35,7 +36,14 @@ function RelatedProducts({ products }) {
   }, [visibleCount]);
 
   if (!products || products.length === 0) {
-    return <p className="text-gray-500">Không có sản phẩm tương tự</p>;
+    return (
+      <div className="w-full mt-10 md:mt-12">
+        <h2 className="text-lg sm:text-xl md:text-2xl font-semibold mb-4 md:mb-6 text-blue-950">
+          Sản phẩm tương tự
+        </h2>
+        <p className="text-gray-500">Không có sản phẩm tương tự</p>
+      </div>
+    );
   }
 
   const canPrev = startIndex > 0;
@@ -62,7 +70,6 @@ function RelatedProducts({ products }) {
       </h2>
 
       <div className="flex items-center gap-3 sm:gap-4">
-        {/* Nút trái */}
         {products.length > visibleCount && (
           <button
             onClick={handlePrev}
@@ -82,7 +89,6 @@ function RelatedProducts({ products }) {
           </button>
         )}
 
-        {/* Grid sản phẩm - Responsive */}
         <div className="flex-1 overflow-hidden">
           <div
             className="grid gap-3 sm:gap-4"
@@ -90,39 +96,50 @@ function RelatedProducts({ products }) {
               gridTemplateColumns: `repeat(${visibleCount}, minmax(0, 1fr))`,
             }}
           >
-            {visibleProducts.map((item) => (
-              <Link
-                key={item.id}
-                to={`/product/${item.id}`}
-                className="
-                  border rounded-xl 
-                  overflow-hidden shadow-sm
-                  hover:shadow-md transition-shadow 
-                  duration-300
-                  block
-                "
-              >
-                <div className="aspect-square w-full overflow-hidden bg-gray-100">
-                  <img
-                    src={item.images[0]}
-                    alt={item.name}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-                <div className="p-3">
-                  <h3 className="font-medium text-gray-800 text-sm line-clamp-2 min-h-[2.5rem]">
-                    {item.name}
-                  </h3>
-                  <p className="text-blue-950 font-semibold mt-2 text-sm">
-                    {item.price.toLocaleString()}₫
-                  </p>
-                </div>
-              </Link>
-            ))}
+            {visibleProducts.map((item) => {
+              const defaultImage =
+                "https://via.placeholder.com/400x400?text=No+Image";
+              const image =
+                item.imageUrls && item.imageUrls.length > 0
+                  ? item.imageUrls[0]
+                  : defaultImage;
+
+              return (
+                <Link
+                  key={item.id}
+                  to={`/product/${item.id}`}
+                  className="
+                    border rounded-xl 
+                    overflow-hidden shadow-sm
+                    hover:shadow-md transition-shadow 
+                    duration-300
+                    block
+                  "
+                >
+                  <div className="aspect-square w-full overflow-hidden bg-gray-100">
+                    <img
+                      src={image}
+                      alt={item.name}
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                      onError={(e) => {
+                        e.target.src = defaultImage;
+                      }}
+                    />
+                  </div>
+                  <div className="p-3">
+                    <h3 className="font-medium text-gray-800 text-sm line-clamp-2 min-h-[2.5rem]">
+                      {item.name}
+                    </h3>
+                    <p className="text-blue-950 font-semibold mt-2 text-sm">
+                      {formatPrice(item.price)}
+                    </p>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </div>
 
-        {/* Nút phải */}
         {products.length > visibleCount && (
           <button
             onClick={handleNext}

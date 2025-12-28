@@ -5,6 +5,7 @@ import Navbar from "@/components/Shared/Navbar";
 import Footer from "@/components/Shared/Footer";
 import { authService } from "@/services/authService";
 import useAuth from "@/contexts/useAuth";
+import useCart from "@/contexts/useCart";
 
 function LoginPage() {
   const [formData, setFormData] = useState({
@@ -22,6 +23,7 @@ function LoginPage() {
   const navigate = useNavigate();
   const isLogin = location.pathname === "/login";
 
+  const { syncCartAfterLogin } = useCart();
   const { login } = useAuth();
 
   const validateForm = () => {
@@ -91,6 +93,9 @@ function LoginPage() {
       login(email, fullName, role, userId);
 
       setSuccessMessage("Đăng nhập thành công! Đang chuyển hướng...");
+
+      // Đồng bộ giỏ hảng từ localStorage lên backend
+      await syncCartAfterLogin();
 
       setTimeout(() => {
         navigate("/", { replace: true });
