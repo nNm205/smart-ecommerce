@@ -1,6 +1,12 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Settings = () => {
+    const navigate = useNavigate();
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        navigate('/login', { replace: true });
+    };
     return (
         <>
             <div className="mb-6">
@@ -52,6 +58,9 @@ const Settings = () => {
                             </div>
                             <button className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
                                 Đổi Mật Khẩu
+                            </button>
+                            <button onClick={handleLogout} className="ml-3 px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors">
+                                Đăng Xuất
                             </button>
                         </div>
                     </div>

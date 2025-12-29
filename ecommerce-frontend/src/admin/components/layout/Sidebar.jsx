@@ -33,7 +33,14 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, currentPath, navigate }) => {
                 {menuItems.map((item) => (
                     <button
                         key={item.id}
-                        onClick={() => navigate(item.path)}
+                        onClick={() => {
+                            const token = localStorage.getItem('token');
+                            if (!token) {
+                                navigate('/login');
+                            } else {
+                                navigate(item.path);
+                            }
+                        }}
                         className={`w-full flex items-center gap-3 p-3 rounded-lg mb-2 transition-colors relative ${
                             currentPath === item.path ? 'bg-blue-600' : 'hover:bg-gray-800'
                         }`}

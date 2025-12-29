@@ -25,11 +25,6 @@ const Orders = () => {
         openView(order);
     };
 
-    const handlePrint = (order) => {
-        console.log('Printing order:', order.orderId);
-        alert(`In đơn hàng ${order.orderId}`);
-    };
-
     const handleUpdateStatus = (orderId, newStatus) => {
         setOrders(orders.map(order =>
             order.id === orderId

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Navigate } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Header from './Header';
 
@@ -7,6 +7,12 @@ const AdminLayout = ({ children }) => {
     const [sidebarOpen, setSidebarOpen] = useState(true);
     const navigate = useNavigate();
     const location = useLocation();
+    const rawToken = localStorage.getItem('token');
+    const token = rawToken && rawToken !== 'undefined' && rawToken !== 'null' && rawToken.trim() !== '' ? rawToken : null;
+
+    if (!token) {
+        return <Navigate to="/login" replace />;
+    }
 
     return (
         <div className="flex h-screen bg-gray-100">

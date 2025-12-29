@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import AdminLayout from './components/layout/AdminLayout';
 import Dashboard from './pages/Dashboard';
 import Users from './pages/Users';
@@ -7,8 +7,30 @@ import Orders from './pages/Orders';
 import Products from './pages/Products';
 import Chat from './pages/Chat';
 import Settings from './pages/Settings';
+import Login from './pages/Login';
 
 function App() {
+    const location = useLocation();
+    const isAuthRoute = location.pathname === '/login';
+    const rawToken = localStorage.getItem('token');
+    const token = rawToken && rawToken !== 'undefined' && rawToken !== 'null' && rawToken.trim() !== '' ? rawToken : null;
+
+    if (isAuthRoute && token) {
+        return <Navigate to="/" replace />;
+    }
+
+    if (!isAuthRoute && !token) {
+        return <Navigate to="/login" replace />;
+    }
+
+    if (isAuthRoute) {
+        return (
+            <Routes>
+                <Route path="/login" element={<Login />} />
+                <Route path="*" element={<Login />} />
+            </Routes>
+        );
+    }
     return (
         <AdminLayout>
             <Routes>
