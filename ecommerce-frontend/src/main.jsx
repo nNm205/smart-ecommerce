@@ -5,14 +5,17 @@ import "@/index.css";
 import App from "@/App.jsx";
 import { CartProvider } from "@/contexts/CartContext";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { ChatProvider } from "./contexts/ChatContext";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <CartProvider>
-          <App />
-        </CartProvider>
+        <ChatProvider>
+          <CartProvider>
+            <App />
+          </CartProvider>
+        </ChatProvider>
       </AuthProvider>
     </BrowserRouter>
   </StrictMode>

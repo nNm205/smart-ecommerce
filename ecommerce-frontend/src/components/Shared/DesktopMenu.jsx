@@ -57,6 +57,7 @@ export default function DesktopMenu() {
         ) : item.dropdown === "simple" ? (
           <div key={index} className="group relative">
             <Link
+              to={item.path}
               className="relative flex items-center text-black 
                          font-semibold text-[16px] 
                          hover:text-blue-800 transition
@@ -66,7 +67,7 @@ export default function DesktopMenu() {
                          hover:after:w-full after:transition-all 
                          after:duration-300 cursor-pointer"
             >
-              <Link to={item.path}>{item.title}</Link>
+              {item.title}
               <ChevronDown className="w-4 h-4 ml-1" />
             </Link>
             <div

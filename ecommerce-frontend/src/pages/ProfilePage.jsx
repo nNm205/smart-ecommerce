@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "@/components/Shared/Navbar";
 import Footer from "@/components/Shared/Footer";
 import ProfileTab from "@/components/Profile/ProfileTab";
@@ -6,21 +6,22 @@ import OrdersTab from "@/components/Orders/OrdersTab";
 import LogoutTab from "@/components/LogoutTab";
 import AddressesTab from "@/components/Addresses/AddressesTab";
 import SecurityTab from "@/components/Security/SecurityTab";
+import AdminChatTab from "@/components/AdminChat/AdminChatTab";
 import { ChevronRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import useAuth from "@/contexts/useAuth";
-import { useNavigate } from "react-router-dom";
 
 const MAIN_TABS = [
-  { key: "account", label: "Tài khoản của tôi" },
-  { key: "orders", label: "Đơn hàng của tôi" },
-  { key: "logout", label: "Đăng xuất" },
+  { key: "account", label: "Tài khoản của tôi", path: "/profile" },
+  { key: "orders", label: "Đơn hàng của tôi", path: "/profile/orders" },
+  { key: "admin-chat", label: "Chat với Admin", path: "/profile/admin-chat" },
+  { key: "logout", label: "Đăng xuất", path: "/profile/logout" },
 ];
 
 const ACCOUNT_SUBTABS = [
-  { key: "profile", label: "Hồ sơ" },
-  { key: "addresses", label: "Địa chỉ" },
-  { key: "security", label: "Đổi mật khẩu" },
+  { key: "profile", label: "Hồ sơ", path: "/profile" },
+  { key: "addresses", label: "Địa chỉ", path: "/profile/addresses" },
+  { key: "security", label: "Đổi mật khẩu", path: "/profile/security" },
 ];
 
 const ORDERS_SUBTABS = [
@@ -38,9 +39,10 @@ const ORDERS_SUBTABS = [
 export default function ProfilePage() {
   const [activeMain, setActiveMain] = useState("account");
   const [activeAccountSub, setActiveAccountSub] = useState("profile");
-  const [activeOrdersSub, setActiveOrdersSub] = useState("All");
+
   const { auth, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const user = {
     name: auth.fullName,
@@ -49,13 +51,47 @@ export default function ProfilePage() {
     avatar: "https://i.pravatar.cc/150?img=3",
   };
 
-  const toggleMain = (key) => {
-    setActiveMain(key);
+  useEffect(() => {
+    const path = location.pathname;
+
+    if (path === "/profile") {
+      setActiveMain("account");
+      setActiveAccountSub("profile");
+    } else if (path === "/profile/addresses") {
+      setActiveMain("account");
+      setActiveAccountSub("addresses");
+    } else if (path === "/profile/security") {
+      setActiveMain("account");
+      setActiveAccountSub("security");
+    } else if (path.startsWith("/profile/orders")) {
+      setActiveMain("orders");
+    } else if (path.startsWith("/profile/admin-chat")) {
+      setActiveMain("admin-chat");
+    } else if (path === "/profile/logout") {
+      setActiveMain("logout");
+    }
+  }, [location.pathname]);
+
+  const handleMainTabClick = (tab) => {
+    if (tab.key === "logout") {
+      navigate(tab.path);
+      setActiveMain("logout");
+    } else {
+      navigate(tab.path);
+    }
   };
 
-  const handleOrdersSubClick = (orderKey) => {
-    setActiveMain("orders");
-    setActiveOrdersSub(orderKey);
+  const handleAccountSubClick = (subTab) => {
+    navigate(subTab.path);
+  };
+
+  const handleLogoutConfirm = () => {
+    logout();
+    navigate("/", { replace: true });
+  };
+
+  const handleLogoutCancel = () => {
+    navigate("/profile");
   };
 
   const renderSubTabs = (items, activeKey, onClick) => {
@@ -63,7 +99,7 @@ export default function ProfilePage() {
       <button
         key={it.key}
         type="button"
-        onClick={() => onClick(it.key)}
+        onClick={() => onClick(it)}
         className={`text-left block px-3 py-1 w-full text-md focus:outline-none ${
           activeKey === it.key ? "text-black font-medium" : "text-gray-400"
         }`}
@@ -71,6 +107,39 @@ export default function ProfilePage() {
         {it.label}
       </button>
     ));
+  };
+
+  const renderContent = () => {
+    const path = location.pathname;
+
+    if (path.startsWith("/profile/orders")) {
+      return <OrdersTab />;
+    }
+
+    if (path === "/profile/admin-chat") {
+      return <AdminChatTab />;
+    }
+
+    if (path === "/profile/logout") {
+      return (
+        <LogoutTab
+          onConfirm={handleLogoutConfirm}
+          onCancel={handleLogoutCancel}
+        />
+      );
+    }
+
+    if (path === "/profile") {
+      return <ProfileTab user={user} />;
+    }
+    if (path === "/profile/addresses") {
+      return <AddressesTab />;
+    }
+    if (path === "/profile/security") {
+      return <SecurityTab />;
+    }
+
+    return <ProfileTab user={user} />;
   };
 
   return (
@@ -86,7 +155,7 @@ export default function ProfilePage() {
         </Link>
         <ChevronRight size={14} className="mx-1" />
         <Link
-          to="/account"
+          to="/profile"
           className="hover:text-blue-700 transition-colors duration-200"
         >
           Tài khoản của tôi
@@ -104,10 +173,12 @@ export default function ProfilePage() {
                   <div key={t.key}>
                     <button
                       type="button"
-                      onClick={() => toggleMain(t.key)}
+                      onClick={() => handleMainTabClick(t)}
                       className={`text-left px-3 py-2 w-full ${
                         t.key === "logout" ? "text-red-600" : "text-black"
-                      } text-lg font-semibold cursor-pointer`}
+                      } text-lg font-semibold cursor-pointer hover:bg-gray-50 rounded transition-colors ${
+                        activeMain === t.key ? "bg-gray-50" : ""
+                      }`}
                     >
                       {t.label}
                     </button>
@@ -117,7 +188,7 @@ export default function ProfilePage() {
                         {renderSubTabs(
                           ACCOUNT_SUBTABS,
                           activeAccountSub,
-                          setActiveAccountSub
+                          handleAccountSubClick
                         )}
                       </div>
                     )}
@@ -128,15 +199,17 @@ export default function ProfilePage() {
 
             {/* Mobile tabs */}
             <div className="lg:hidden mt-4">
-              <div className="flex gap-2">
+              <div className="flex gap-2 overflow-x-auto">
                 {MAIN_TABS.map((t) => (
                   <button
                     key={t.key}
                     type="button"
-                    onClick={() => toggleMain(t.key)}
+                    onClick={() => handleMainTabClick(t)}
                     className={`whitespace-nowrap px-3 py-2 cursor-pointer ${
                       t.key === "logout" ? "text-red-600" : "text-black"
-                    } text-base font-semibold`}
+                    } text-base font-semibold ${
+                      activeMain === t.key ? "border-b-2 border-black" : ""
+                    }`}
                   >
                     {t.label}
                   </button>
@@ -149,10 +222,10 @@ export default function ProfilePage() {
                     <button
                       key={s.key}
                       type="button"
-                      onClick={() => setActiveAccountSub(s.key)}
+                      onClick={() => handleAccountSubClick(s)}
                       className={`whitespace-nowrap px-3 py-2 text-sm ${
                         activeAccountSub === s.key
-                          ? "text-black font-medium"
+                          ? "text-black font-medium border-b-2 border-blue-600"
                           : "text-gray-400"
                       }`}
                     >
@@ -164,33 +237,8 @@ export default function ProfilePage() {
             </div>
           </aside>
 
-          {/* Main content */}
           <section className="bg-white rounded-xl p-6 shadow-sm min-h-[320px]">
-            {activeMain === "orders" && (
-              <OrdersTab
-                status={activeOrdersSub}
-                onStatusChange={handleOrdersSubClick}
-              />
-            )}
-            {activeMain === "account" && (
-              <div>
-                {activeAccountSub === "profile" && <ProfileTab user={user} />}
-                {activeAccountSub === "addresses" && <AddressesTab />}
-                {activeAccountSub === "security" && <SecurityTab />}
-              </div>
-            )}
-            {activeMain === "logout" && (
-              <LogoutTab
-                onConfirm={() => {
-                  logout();
-                  navigate("/", { replace: true });
-                }}
-                onCancel={() => {
-                  setActiveMain("account");
-                  setActiveAccountSub("profile");
-                }}
-              />
-            )}
+            {renderContent()}
           </section>
         </div>
       </main>

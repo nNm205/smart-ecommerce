@@ -1,32 +1,67 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { CheckCircle, Home, Package, Phone, Mail, MapPin } from "lucide-react";
-import { useEffect } from "react";
+import {
+  CheckCircle,
+  Home,
+  Package,
+  Phone,
+  Mail,
+  MapPin,
+  Loader2,
+} from "lucide-react";
+import { useState, useEffect } from "react";
 import Navbar from "@/components/Shared/Navbar";
 import Footer from "@/components/Shared/Footer";
 import { formatPrice } from "@/utils/formatters";
+import { orderService } from "@/services/orderService";
+import { useToast } from "@/hooks/useToast.jsx";
 
 export default function OrderSuccessPage() {
   const location = useLocation();
   const navigate = useNavigate();
-  const order = location.state?.order;
+  const [order, setOrder] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const { showToast } = useToast();
 
   useEffect(() => {
-    if (!order) {
-      navigate("/");
-    }
-  }, [order, navigate]);
+    const fetchOrderDetails = async () => {
+      try {
+        const orderId = location.state?.orderId;
+        if (!orderId) {
+          navigate("/");
+          return;
+        }
 
-  if (!order) {
-    return null;
-  }
+        const orderData = await orderService.getOrderById(orderId);
+        setOrder(orderData);
+      } catch (error) {
+        console.error("Error fetching order:", error);
+        showToast("Không thể tải thông tin đơn hàng", "error");
+        navigate("/");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchOrderDetails();
+  }, [location.state, navigate, showToast]);
 
   const getPaymentMethodText = (method) => {
     const methods = {
-      cod: "Thanh toán khi nhận hàng (COD)",
-      bank_transfer: "Chuyển khoản ngân hàng",
-      momo: "Ví MoMo",
+      COD: "Thanh toán khi nhận hàng (COD)",
+      VNPAY: "VNPAY",
     };
     return methods[method] || method;
+  };
+
+  const getPaymentStatusText = (status) => {
+    const statuses = {
+      COD: "Thanh toán khi nhận hàng",
+      PENDING: "Chờ thanh toán",
+      PAID: "Đã thanh toán",
+      FAILED: "Thanh toán thất bại",
+      CANCELLED: "Đã hủy",
+    };
+    return statuses[status] || status;
   };
 
   const formatDate = (dateString) => {
@@ -40,13 +75,34 @@ export default function OrderSuccessPage() {
     });
   };
 
+  if (loading) {
+    return (
+      <>
+        <Navbar />
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+          <div className="text-center">
+            <Loader2
+              size={48}
+              className="text-blue-600 animate-spin mx-auto mb-4"
+            />
+            <p className="text-gray-600">Đang tải thông tin đơn hàng...</p>
+          </div>
+        </div>
+        <Footer />
+      </>
+    );
+  }
+
+  if (!order) {
+    return null;
+  }
+
   return (
     <>
       <Navbar />
 
       <div className="min-h-screen bg-gray-50 py-8 md:py-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Success Card */}
           <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
             {/* Success Header */}
             <div className="bg-gradient-to-r from-green-500 to-emerald-600 p-8 text-center text-white">
@@ -75,7 +131,7 @@ export default function OrderSuccessPage() {
                   <div className="text-left md:text-right">
                     <p className="text-sm text-gray-600 mb-1">Thời gian đặt</p>
                     <p className="text-sm font-medium text-gray-900">
-                      {formatDate(order.date)}
+                      {formatDate(order.createdAt)}
                     </p>
                   </div>
                 </div>
@@ -95,31 +151,7 @@ export default function OrderSuccessPage() {
                     <div>
                       <p className="text-sm text-gray-600">Người nhận</p>
                       <p className="font-semibold text-gray-900">
-                        {order.shipping.fullName}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                      <Phone size={16} className="text-green-600" />
-                    </div>
-                    <div>
-                      <p className="text-sm text-gray-600">Số điện thoại</p>
-                      <p className="font-semibold text-gray-900">
-                        {order.shipping.phone}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
-                      <Mail size={16} className="text-purple-600" />
-                    </div>
-                    <div>
-                      <p className="text-sm text-gray-600">Email</p>
-                      <p className="font-semibold text-gray-900">
-                        {order.shipping.email}
+                        {order.userFullName}
                       </p>
                     </div>
                   </div>
@@ -131,20 +163,10 @@ export default function OrderSuccessPage() {
                     <div>
                       <p className="text-sm text-gray-600">Địa chỉ</p>
                       <p className="font-semibold text-gray-900">
-                        {order.shipping.address}, {order.shipping.district},{" "}
-                        {order.shipping.city}
+                        {order.shippingAddress}
                       </p>
                     </div>
                   </div>
-
-                  {order.shipping.notes && (
-                    <div className="pt-3 border-t border-gray-200">
-                      <p className="text-sm text-gray-600 mb-1">Ghi chú</p>
-                      <p className="text-sm text-gray-700">
-                        {order.shipping.notes}
-                      </p>
-                    </div>
-                  )}
                 </div>
               </div>
 
@@ -154,25 +176,25 @@ export default function OrderSuccessPage() {
                   Sản phẩm đã đặt
                 </h3>
                 <div className="space-y-3">
-                  {order.items.map((item, index) => (
+                  {order.items.map((item) => (
                     <div
-                      key={index}
+                      key={item.id}
                       className="flex gap-4 p-4 bg-gray-50 rounded-lg"
                     >
                       <img
-                        src={item.image}
-                        alt={item.name}
+                        src={item.productImage}
+                        alt={item.productName}
                         className="w-20 h-20 object-cover rounded-lg border border-gray-200"
                       />
                       <div className="flex-1 min-w-0">
                         <p className="font-medium text-gray-900 line-clamp-2 mb-1">
-                          {item.name}
+                          {item.productName}
                         </p>
                         <p className="text-sm text-gray-500 mb-2">
-                          {item.size} / {item.color} × {item.quantity}
+                          Size {item.size} × {item.quantity}
                         </p>
                         <p className="font-semibold text-blue-600">
-                          {formatPrice(item.price * item.quantity)}
+                          {formatPrice(item.subtotal)}
                         </p>
                       </div>
                     </div>
@@ -192,23 +214,33 @@ export default function OrderSuccessPage() {
                     </span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">Tạm tính</span>
-                    <span className="font-medium text-gray-900">
-                      {formatPrice(order.total - 30000)}
+                    <span className="text-gray-600">Trạng thái thanh toán</span>
+                    <span
+                      className={`font-medium ${
+                        order.paymentStatus === "PAID"
+                          ? "text-green-600"
+                          : order.paymentStatus === "FAILED"
+                          ? "text-red-600"
+                          : "text-yellow-600"
+                      }`}
+                    >
+                      {getPaymentStatusText(order.paymentStatus)}
                     </span>
                   </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">Phí vận chuyển</span>
-                    <span className="font-medium text-gray-900">
-                      {formatPrice(30000)}
-                    </span>
-                  </div>
+                  {order.paymentTransactionId && (
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-600">Mã giao dịch</span>
+                      <span className="font-medium text-gray-900">
+                        {order.paymentTransactionId}
+                      </span>
+                    </div>
+                  )}
                   <div className="flex justify-between items-center pt-3 border-t border-gray-200">
                     <span className="font-bold text-gray-900 text-base">
                       Tổng cộng
                     </span>
                     <span className="font-bold text-blue-600 text-xl">
-                      {formatPrice(order.total)}
+                      {formatPrice(order.totalAmount)}
                     </span>
                   </div>
                 </div>
@@ -233,7 +265,7 @@ export default function OrderSuccessPage() {
                   <span>Về trang chủ</span>
                 </button>
                 <button
-                  onClick={() => navigate("/account")}
+                  onClick={() => navigate("/profile/orders")}
                   className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2"
                 >
                   <Package size={20} />

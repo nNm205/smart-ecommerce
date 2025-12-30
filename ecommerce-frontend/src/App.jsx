@@ -9,7 +9,10 @@ import ProductDetailPage from "@/pages/ProductDetailPage";
 import CheckoutPage from "@/pages/CheckoutPage";
 import OrderSuccessPage from "@/pages/OrderSuccessPage";
 import ForgotPasswordPage from "@/pages/ForgotPasswordPage";
-import { useTokenRefresh } from "./hooks/useTokenRefresh";
+import { useTokenRefresh } from "@/hooks/useTokenRefresh";
+import VNPayReturnPage from "@/pages/VNPayReturnPage";
+import OrderDetailPage from "./pages/OrderDetailPage";
+import ChatWidget from "./components/ChatWidget";
 
 function App() {
   useTokenRefresh(60);
@@ -18,17 +21,45 @@ function App() {
     <>
       <div className="pt-16">
         <Routes>
+          {/* Home route */}
           <Route path="/" element={<HomePage />} />
-          <Route path="/category/:category" element={<CategoryPage />} />
+
+          {/* Authentication routes */}
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/account" element={<ProfilePage />} />
-          <Route path="/cart" element={<CartPage />} />
-          <Route path="/product/:id" element={<ProductDetailPage />} />
-          <Route path="/checkout" element={<CheckoutPage />} />
-          <Route path="/order-success" element={<OrderSuccessPage />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+
+          {/* Profile routes */}
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/profile/addresses" element={<ProfilePage />} />
+          <Route path="/profile/security" element={<ProfilePage />} />
+          <Route path="/profile/orders" element={<ProfilePage />} />
+          <Route path="/profile/admin-chat" element={<ProfilePage />} />
+          <Route path="/profile/logout" element={<ProfilePage />} />
+
+          {/* Order Detail route */}
+          <Route path="/orders/:orderId" element={<OrderDetailPage />} />
+
+          {/* Order success route */}
+          <Route path="/order-success" element={<OrderSuccessPage />} />
+
+          {/* Cart route */}
+          <Route path="/cart" element={<CartPage />} />
+
+          {/* Category route */}
+          <Route path="/category/:category" element={<CategoryPage />} />
+
+          {/* Product Detail route */}
+          <Route path="/product/:id" element={<ProductDetailPage />} />
+
+          {/* Checkout route */}
+          <Route path="/checkout" element={<CheckoutPage />} />
+
+          {/* Checkout VNPay route */}
+          <Route path="/vnpay-return" element={<VNPayReturnPage />} />
         </Routes>
+
+        <ChatWidget />
       </div>
     </>
   );

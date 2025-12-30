@@ -10,6 +10,7 @@ import BannerSlider from "@/components/HomePage/BannerSlider";
 import homeBanner_1 from "@/assets/images/banner_1.jpg";
 import homeBanner_2 from "@/assets/images/banner_2.jpg";
 import Chatbot from "@/components/Shared/Chatbot.jsx";
+import ChatWidget from "@/components/ChatWidget";
 import { fetchAllCategories } from "@/utils/categoryMapping";
 import { Loader2 } from "lucide-react";
 
@@ -114,7 +115,6 @@ function HomePage() {
         )}
       </main>
 
-      <Chatbot />
       {/* Footer */}
       <Footer />
     </div>

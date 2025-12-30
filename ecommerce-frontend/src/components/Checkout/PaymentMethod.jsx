@@ -1,4 +1,4 @@
-import { CreditCard, Banknote, Wallet } from "lucide-react";
+import { CreditCard, Banknote } from "lucide-react";
 
 export default function PaymentMethod({ selectedMethod, onChange }) {
   const paymentMethods = [
@@ -9,16 +9,11 @@ export default function PaymentMethod({ selectedMethod, onChange }) {
       icon: Banknote,
     },
     {
-      id: "bank_transfer",
-      name: "Chuyển khoản ngân hàng",
-      description: "Chuyển khoản qua ngân hàng hoặc ví điện tử",
+      id: "vnpay",
+      name: "Thanh toán VNPay",
+      description:
+        "Thanh toán qua cổng thanh toán VNPay (ATM, Visa, MasterCard)",
       icon: CreditCard,
-    },
-    {
-      id: "momo",
-      name: "Ví MoMo",
-      description: "Thanh toán qua ví điện tử MoMo",
-      icon: Wallet,
     },
   ];
 
@@ -61,25 +56,31 @@ export default function PaymentMethod({ selectedMethod, onChange }) {
         })}
       </div>
 
-      {selectedMethod === "bank_transfer" && (
+      {selectedMethod === "vnpay" && (
         <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
           <p className="text-sm font-medium text-gray-900 mb-2">
-            Thông tin chuyển khoản:
+            💳 Lưu ý thanh toán VNPay:
           </p>
-          <div className="text-sm text-gray-700 space-y-1">
-            <p>
-              Ngân hàng: <strong>Vietcombank</strong>
-            </p>
-            <p>
-              Số tài khoản: <strong>1234567890</strong>
-            </p>
-            <p>
-              Chủ tài khoản: <strong>NGUYEN VAN A</strong>
-            </p>
-            <p className="text-xs text-gray-500 mt-2">
-              Nội dung: Họ tên + Số điện thoại
-            </p>
-          </div>
+          <ul className="text-sm text-gray-700 space-y-1.5">
+            <li className="flex items-start gap-2">
+              <span className="text-blue-600 mt-0.5">•</span>
+              <span>Bạn sẽ được chuyển hướng đến trang thanh toán VNPay</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-blue-600 mt-0.5">•</span>
+              <span>
+                Hỗ trợ: Thẻ ATM nội địa, Visa, MasterCard, JCB, ví điện tử
+              </span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-blue-600 mt-0.5">•</span>
+              <span>Giao dịch được mã hóa bảo mật SSL 256-bit</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-blue-600 mt-0.5">•</span>
+              <span>Đơn hàng sẽ được tạo sau khi thanh toán thành công</span>
+            </li>
+          </ul>
         </div>
       )}
     </div>
