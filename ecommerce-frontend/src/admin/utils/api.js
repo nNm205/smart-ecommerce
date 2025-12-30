@@ -12,6 +12,11 @@ const api = axios.create({
 // Request interceptor - thêm token vào header nếu có
 api.interceptors.request.use(
     (config) => {
+        // Bypass CORS cho các request Dashboard (/admin) bằng cách dùng Proxy
+        if (config.url?.startsWith('/admin')) {
+            config.baseURL = ''; 
+        }
+
         const token = localStorage.getItem('token');
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;

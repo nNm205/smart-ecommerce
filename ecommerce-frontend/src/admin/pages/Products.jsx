@@ -404,7 +404,7 @@ const Products = () => {
     return (
         <div className="flex gap-6">
             {/* Sidebar */}
-            <div className="w-80 flex-shrink-0">
+            <div className="w-56 flex-shrink-0">
                 <div className="bg-white rounded-lg shadow p-6">
                     <div className="flex items-center justify-between mb-4">
                         <h3 className="text-lg font-bold text-gray-800">Danh Mục Sản Phẩm</h3>

@@ -21,10 +21,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, currentPath, navigate }) => {
     ];
 
     return (
-        <div className={`${sidebarOpen ? 'w-64' : 'w-20'} bg-gray-900 text-white transition-all duration-300 flex flex-col`}>
-            <div className="p-4 flex items-center justify-between border-b border-gray-700">
+        <div className={`${sidebarOpen ? 'w-64' : 'w-20'} bg-gray-50 text-gray-900 transition-all duration-300 flex flex-col border-r border-gray-200`}>
+            <div className="p-4 flex items-center justify-between border-b border-gray-200">
                 {sidebarOpen && <h1 className="text-xl font-bold">Admin Panel</h1>}
-                <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2 hover:bg-gray-800 rounded">
+                <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2 hover:bg-gray-100 rounded">
                     {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
                 </button>
             </div>
@@ -42,11 +42,11 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, currentPath, navigate }) => {
                             }
                         }}
                         className={`w-full flex items-center gap-3 p-3 rounded-lg mb-2 transition-colors relative ${
-                            currentPath === item.path ? 'bg-blue-600' : 'hover:bg-gray-800'
+                            currentPath === item.path ? 'bg-blue-100 text-blue-700' : 'hover:bg-gray-100'
                         }`}
                     >
                         <item.icon size={20} />
-                        {sidebarOpen && <span>{item.label}</span>}
+                        {sidebarOpen && <span className="truncate">{item.label}</span>}
                         {item.badge && (
                             <span className="absolute top-2 right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                 {item.badge}
@@ -56,15 +56,15 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, currentPath, navigate }) => {
                 ))}
             </nav>
 
-            <div className="p-4 border-t border-gray-700">
+            <div className="p-4 border-t border-gray-200">
                 <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center font-semibold">
+                    <div className="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-semibold">
                         AD
                     </div>
                     {sidebarOpen && (
                         <div className="min-w-0">
                             <p className="font-semibold truncate">Admin User</p>
-                            <p className="text-sm text-gray-400 truncate">admin@example.com</p>
+                            <p className="text-sm text-gray-500 truncate">admin@example.com</p>
                         </div>
                     )}
                 </div>
