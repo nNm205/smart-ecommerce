@@ -1,19 +1,46 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Bell, X, Check } from 'lucide-react';
+import dashboardService from '../../services/dashboardService';
 
 const NotificationDropdown = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const [notifications, setNotifications] = useState([
-        { id: 1, title: 'Đơn hàng mới', message: 'Bạn có đơn hàng mới #ĐH006 từ Nguyễn Văn F', time: '5 phút trước', unread: true },
-        { id: 2, title: 'Sản phẩm sắp hết hàng', message: 'MacBook Pro chỉ còn 5 sản phẩm trong kho', time: '1 giờ trước', unread: true },
-        { id: 3, title: 'Khách hàng mới', message: 'Trần Thị G vừa đăng ký tài khoản', time: '2 giờ trước', unread: true },
-        { id: 4, title: 'Đơn hàng hoàn thành', message: 'Đơn hàng #ĐH003 đã được giao thành công', time: '3 giờ trước', unread: false },
-        { id: 5, title: 'Báo cáo doanh thu', message: 'Báo cáo doanh thu tháng 11 đã sẵn sàng', time: 'Hôm qua', unread: false },
-    ]);
+    const [notifications, setNotifications] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const dropdownRef = useRef(null);
 
     const unreadCount = notifications.filter(n => n.unread).length;
+
+    const loadLowStock = async () => {
+        setLoading(true);
+        try {
+            const res = await dashboardService.getLowStockProducts();
+            const list = Array.isArray(res) ? res : (Array.isArray(res?.data) ? res.data : []);
+            const mapped = list.map((p, idx) => {
+                const status = p.status || p.stockStatus;
+                let message = '';
+                if (status === 'LOW_STOCK') {
+                    message = `${p.productName} đang còn ít hàng`;
+                } else if (status === 'OUT_OF_STOCK') {
+                    message = `${p.productName} đã hết hàng`;
+                } else {
+                    message = `${p.productName} trạng thái kho: ${status || 'N/A'}`;
+                }
+                return {
+                    id: `${Date.now()}-${idx}`,
+                    title: 'Cảnh báo tồn kho',
+                    message,
+                    time: '',
+                    unread: true,
+                };
+            });
+            setNotifications(mapped);
+        } catch (e) {
+            setNotifications([]);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -43,7 +70,13 @@ const NotificationDropdown = () => {
     return (
         <div className="relative" ref={dropdownRef}>
             <button
-                onClick={() => setIsOpen(!isOpen)}
+                onClick={() => {
+                    const next = !isOpen;
+                    setIsOpen(next);
+                    if (next) {
+                        loadLowStock();
+                    }
+                }}
                 className="relative p-2 hover:bg-gray-100 rounded-lg transition-colors"
             >
                 <Bell size={20} />
@@ -71,7 +104,12 @@ const NotificationDropdown = () => {
 
                     {/* Notifications List */}
                     <div className="max-h-96 overflow-y-auto">
-                        {notifications.length === 0 ? (
+                        {loading ? (
+                            <div className="p-8 text-center">
+                                <Bell size={48} className="mx-auto text-gray-300 mb-3 animate-pulse" />
+                                <p className="text-gray-500">Đang tải thông báo...</p>
+                            </div>
+                        ) : notifications.length === 0 ? (
                             <div className="p-8 text-center">
                                 <Bell size={48} className="mx-auto text-gray-300 mb-3" />
                                 <p className="text-gray-500">Không có thông báo mới</p>

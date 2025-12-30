@@ -62,11 +62,6 @@ const Chat = () => {
 
     return (
         <div className="h-full flex flex-col">
-            <div className="mb-6">
-                <h2 className="text-2xl font-bold text-gray-800">Chat</h2>
-                <p className="text-gray-600">Trò chuyện với khách hàng</p>
-            </div>
-
             <div className="flex-1 flex gap-4 overflow-hidden">
                 {/* Chat List */}
                 <div className="w-80 bg-white rounded-lg shadow overflow-hidden flex flex-col">

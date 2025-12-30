@@ -1,16 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Search, Eye } from 'lucide-react';
 import Modal from '../components/common/Modal';
 import useModal from '../hooks/useModal';
+import orderService from '../services/orderService';
 
 const Orders = () => {
-    const [orders, setOrders] = useState([
-        { id: 1, orderId: '#ĐH001', customer: 'Nguyễn Văn A', date: '23/11/2024', product: 'iPhone 15 Pro', amount: '₫29,990,000', status: 'Hoàn thành' },
-        { id: 2, orderId: '#ĐH002', customer: 'Trần Thị B', date: '23/11/2024', product: 'MacBook Air M2', amount: '₫28,490,000', status: 'Đang xử lý' },
-        { id: 3, orderId: '#ĐH003', customer: 'Lê Văn C', date: '23/11/2024', product: 'AirPods Pro', amount: '₫6,490,000', status: 'Đang giao' },
-        { id: 4, orderId: '#ĐH004', customer: 'Phạm Thị D', date: '23/11/2024', product: 'iPad Air', amount: '₫15,990,000', status: 'Hoàn thành' },
-        { id: 5, orderId: '#ĐH005', customer: 'Hoàng Văn E', date: '23/11/2024', product: 'Apple Watch', amount: '₫10,990,000', status: 'Đang xử lý' },
-    ]);
+    const [orders, setOrders] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [keyword, setKeyword] = useState('');
 
     const [filterStatus, setFilterStatus] = useState('all');
 
@@ -21,16 +18,79 @@ const Orders = () => {
     const openView = viewModalHook.openModal;
     const closeView = viewModalHook.closeModal;
 
-    const handleView = (order) => {
-        openView(order);
+    useEffect(() => {
+        fetchOrders();
+    }, []);
+
+    const formatDate = (dateString) => {
+        if (!dateString) return 'N/A';
+        return new Date(dateString).toLocaleDateString('vi-VN');
     };
 
-    const handleUpdateStatus = (orderId, newStatus) => {
-        setOrders(orders.map(order =>
-            order.id === orderId
-                ? { ...order, status: newStatus }
-                : order
-        ));
+    const formatCurrency = (value) => {
+        if (typeof value !== 'number') return value;
+        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value);
+    };
+
+    const fetchOrders = async (searchKeyword = '') => {
+        setLoading(true);
+        try {
+            const data = await orderService.getOrders(searchKeyword);
+            const list = Array.isArray(data) ? data : (data?.content || []);
+            const normalized = list.map(o => {
+                const customerName = o.userFullName || o.customerName || o.user?.fullName || o.user?.username || o.user?.email || 'N/A';
+                const paymentStatus = o.paymentStatus || o.payment?.status || 'N/A';
+                const paymentMethod = o.paymentMethod || o.payment?.method || 'N/A';
+                const totalAmount = typeof o.totalAmount === 'number' ? o.totalAmount : (typeof o.amount === 'number' ? o.amount : 0);
+                return {
+                    id: o.id,
+                    code: `ORD${o.id}`,
+                    customer: customerName,
+                    date: o.createdAt,
+                    paymentStatus,
+                    amount: totalAmount,
+                    paymentMethod,
+                    status: o.status || 'PENDING',
+                    items: o.items || [],
+                };
+            });
+            setOrders(normalized);
+        } catch (error) {
+            console.error('Failed to fetch orders', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const statusLabelVi = (status) => {
+        switch (status) {
+            case 'CANCELLED': return 'Đã hủy';
+            case 'PROCESSING': return 'Đang xử lý';
+            case 'DELIVERED': return 'Đã giao';
+            case 'PENDING': return 'Chờ xử lý';
+            case 'SHIPPED': return 'Đang giao';
+            default: return status || 'N/A';
+        }
+    };
+
+    const handleView = async (order) => {
+        try {
+            const details = await orderService.getOrderById(order.id);
+            openView({ ...order, ...details });
+        } catch (error) {
+            console.error('Failed to fetch order details', error);
+            openView(order);
+        }
+    };
+
+    const handleUpdateStatus = async (orderId, newStatus) => {
+        try {
+            await orderService.updateOrderStatus(orderId, newStatus);
+            await fetchOrders(keyword);
+        } catch (error) {
+            const msg = error.response?.data?.message || error.message || 'Cập nhật trạng thái thất bại';
+            alert(`Lỗi: ${msg}`);
+        }
     };
 
     const filteredOrders = filterStatus === 'all'
@@ -39,26 +99,6 @@ const Orders = () => {
 
     return (
         <div>
-            <div className="mb-6">
-                <h2 className="text-2xl font-bold text-gray-800">Đơn Hàng</h2>
-                <p className="text-gray-600">Quản lý tất cả đơn hàng</p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-                {[
-                    { label: 'Tất cả', count: orders.length, color: 'bg-gray-500' },
-                    { label: 'Đang xử lý', count: orders.filter(o => o.status === 'Đang xử lý').length, color: 'bg-yellow-500' },
-                    { label: 'Đang giao', count: orders.filter(o => o.status === 'Đang giao').length, color: 'bg-blue-500' },
-                    { label: 'Hoàn thành', count: orders.filter(o => o.status === 'Hoàn thành').length, color: 'bg-green-500' },
-                ].map((item, idx) => (
-                    <div key={idx} className="bg-white rounded-lg shadow p-4">
-                        <div className={`w-10 h-10 ${item.color} rounded-lg mb-3`}></div>
-                        <h3 className="text-2xl font-bold text-gray-800">{item.count}</h3>
-                        <p className="text-sm text-gray-600">{item.label}</p>
-                    </div>
-                ))}
-            </div>
-
             <div className="bg-white rounded-lg shadow overflow-hidden">
                 <div className="p-6 border-b border-gray-200 flex items-center justify-between">
                     <div className="relative flex-1 max-w-md">
@@ -66,6 +106,11 @@ const Orders = () => {
                         <input
                             type="text"
                             placeholder="Tìm kiếm đơn hàng..."
+                            value={keyword}
+                            onChange={(e) => setKeyword(e.target.value)}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter') fetchOrders(keyword);
+                            }}
                             className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
@@ -75,39 +120,48 @@ const Orders = () => {
                         className="ml-4 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                         <option value="all">Tất cả trạng thái</option>
-                        <option value="Đang xử lý">Đang xử lý</option>
-                        <option value="Đang giao">Đang giao</option>
-                        <option value="Hoàn thành">Hoàn thành</option>
+                        <option value="CANCELLED">Đã hủy</option>
+                        <option value="PROCESSING">Đang xử lý</option>
+                        <option value="DELIVERED">Đã giao</option>
+                        <option value="PENDING">Chờ xử lý</option>
+                        <option value="SHIPPED">Đang giao</option>
                     </select>
                 </div>
                 <div className="overflow-x-auto">
                     <table className="w-full">
                         <thead className="bg-gray-50">
                         <tr>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Mã ĐH</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Khách Hàng</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Mã Đơn Hàng</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tên Khách Hàng</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ngày Đặt</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sản Phẩm</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Trạng Thái Thanh Toán</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Số Tiền</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Trạng Thái</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phương Thức Thanh Toán</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Trạng Thái Đơn Hàng</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Thao Tác</th>
                         </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-200">
-                        {filteredOrders.map((order) => (
+                        {loading ? (
+                            <tr><td colSpan="8" className="text-center py-4">Đang tải...</td></tr>
+                        ) : filteredOrders.map((order) => (
                             <tr key={order.id} className="hover:bg-gray-50 transition-colors">
-                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{order.orderId}</td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{order.code}</td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{order.customer}</td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{order.date}</td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{order.product}</td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900">{order.amount}</td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{formatDate(order.date)}</td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{order.paymentStatus}</td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900">{formatCurrency(order.amount)}</td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{order.paymentMethod}</td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                    <span className={`inline-flex px-3 py-1 text-xs font-semibold rounded-full ${
-                        order.status === 'Hoàn thành' ? 'bg-green-100 text-green-800' :
-                            order.status === 'Đang xử lý' ? 'bg-yellow-100 text-yellow-800' :
-                                'bg-blue-100 text-blue-800'
-                    }`}>
-                      {order.status}
-                    </span>
+                                    <span className={`inline-flex px-3 py-1 text-xs font-semibold rounded-full ${
+                                        order.status === 'DELIVERED' ? 'bg-green-100 text-green-800' :
+                                        order.status === 'PROCESSING' ? 'bg-yellow-100 text-yellow-800' :
+                                        order.status === 'SHIPPED' ? 'bg-blue-100 text-blue-800' :
+                                        order.status === 'PENDING' ? 'bg-gray-100 text-gray-800' :
+                                        'bg-red-100 text-red-800'
+                                    }`}>
+                                        {statusLabelVi(order.status)}
+                                    </span>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm">
                                     <button
@@ -129,40 +183,66 @@ const Orders = () => {
                 <Modal
                     isOpen={isViewOpen}
                     onClose={closeView}
-                    title={`Chi Tiết Đơn Hàng ${viewData.orderId}`}
-                    size="lg"
+                    title={`Chi Tiết Đơn Hàng ${viewData.code || `ORD${viewData.id}`}`}
+                    size="xl"
                 >
                     <div className="space-y-6">
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">Mã Đơn Hàng</label>
-                                <p className="text-gray-900 font-semibold">{viewData.orderId}</p>
+                                <p className="text-gray-900 font-semibold">{viewData.code || `ORD${viewData.id}`}</p>
                             </div>
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">Ngày Đặt</label>
-                                <p className="text-gray-900">{viewData.date}</p>
+                                <p className="text-gray-900">{formatDate(viewData.date || viewData.createdAt)}</p>
                             </div>
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">Khách Hàng</label>
                                 <p className="text-gray-900">{viewData.customer}</p>
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Trạng Thái</label>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Trạng Thái Đơn Hàng</label>
                                 <span className={`inline-flex px-3 py-1 text-xs font-semibold rounded-full ${
-                                    viewData.status === 'Hoàn thành' ? 'bg-green-100 text-green-800' :
-                                        viewData.status === 'Đang xử lý' ? 'bg-yellow-100 text-yellow-800' :
-                                            'bg-blue-100 text-blue-800'
+                                    viewData.status === 'DELIVERED' ? 'bg-green-100 text-green-800' :
+                                        viewData.status === 'PROCESSING' ? 'bg-yellow-100 text-yellow-800' :
+                                            viewData.status === 'SHIPPED' ? 'bg-blue-100 text-blue-800' :
+                                                viewData.status === 'PENDING' ? 'bg-gray-100 text-gray-800' :
+                                                    'bg-red-100 text-red-800'
                                 }`}>
-                  {viewData.status}
-                </span>
+                                    {statusLabelVi(viewData.status)}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div className="border-t pt-4">
+                            <label className="block text-sm font-medium text-gray-700 mb-2">Thanh Toán</label>
+                            <div className="bg-gray-50 p-4 rounded-lg">
+                                <p className="font-medium text-gray-900">Trạng thái: {viewData.paymentStatus || 'N/A'}</p>
+                                <p className="font-medium text-gray-900">Phương thức: {viewData.paymentMethod || 'N/A'}</p>
+                                <p className="text-2xl font-bold text-blue-600 mt-2">{formatCurrency(viewData.amount)}</p>
                             </div>
                         </div>
 
                         <div className="border-t pt-4">
                             <label className="block text-sm font-medium text-gray-700 mb-2">Sản Phẩm</label>
                             <div className="bg-gray-50 p-4 rounded-lg">
-                                <p className="font-medium text-gray-900">{viewData.product}</p>
-                                <p className="text-2xl font-bold text-blue-600 mt-2">{viewData.amount}</p>
+                                {Array.isArray(viewData.items) && viewData.items.length ? (
+                                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                                        {viewData.items.map((it, idx) => (
+                                            <div key={idx} className="flex items-center justify-between">
+                                                <div className="text-sm text-gray-800">
+                                                    {it.productName || it.name || `Sản phẩm #${it.productId || ''}`}
+                                                    {typeof it.quantity === 'number' ? ` × ${it.quantity}` : ''}
+                                                </div>
+                                                <div className="text-sm font-semibold text-gray-900">
+                                                    {typeof it.price === 'number' ? formatCurrency(it.price) : (it.price || '')}
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <p className="text-gray-600">Không có dữ liệu sản phẩm.</p>
+                                )}
                             </div>
                         </div>
 
@@ -171,7 +251,16 @@ const Orders = () => {
                             <div className="flex gap-2">
                                 <button
                                     onClick={() => {
-                                        handleUpdateStatus(viewData.id, 'Đang xử lý');
+                                        handleUpdateStatus(viewData.id, 'CANCELLED');
+                                        closeView();
+                                    }}
+                                    className="flex-1 px-4 py-2 bg-red-100 text-red-800 rounded-lg hover:bg-red-600 transition-colors"
+                                >
+                                    Đã hủy
+                                </button>
+                                <button
+                                    onClick={() => {
+                                        handleUpdateStatus(viewData.id, 'PROCESSING');
                                         closeView();
                                     }}
                                     className="flex-1 px-4 py-2 bg-yellow-100 text-yellow-800 rounded-lg hover:bg-yellow-600 transition-colors"
@@ -180,21 +269,30 @@ const Orders = () => {
                                 </button>
                                 <button
                                     onClick={() => {
-                                        handleUpdateStatus(viewData.id, 'Đang giao');
+                                        handleUpdateStatus(viewData.id, 'DELIVERED');
+                                        closeView();
+                                    }}
+                                    className="flex-1 px-4 py-2 bg-green-100 text-green-800 rounded-lg hover:bg-green-600 transition-colors"
+                                >
+                                    Đã giao
+                                </button>
+                                <button
+                                    onClick={() => {
+                                        handleUpdateStatus(viewData.id, 'PENDING');
+                                        closeView();
+                                    }}
+                                    className="flex-1 px-4 py-2 bg-gray-100 text-gray-800 rounded-lg hover:bg-gray-600 transition-colors"
+                                >
+                                    Chờ xử lý
+                                </button>
+                                <button
+                                    onClick={() => {
+                                        handleUpdateStatus(viewData.id, 'SHIPPED');
                                         closeView();
                                     }}
                                     className="flex-1 px-4 py-2 bg-blue-100 text-blue-800 rounded-lg hover:bg-blue-600 transition-colors"
                                 >
                                     Đang giao
-                                </button>
-                                <button
-                                    onClick={() => {
-                                        handleUpdateStatus(viewData.id, 'Hoàn thành');
-                                        closeView();
-                                    }}
-                                    className="flex-1 px-4 py-2 bg-green-100 text-green-800 rounded-lg hover:bg-green-600 transition-colors"
-                                >
-                                    Hoàn thành
                                 </button>
                             </div>
                         </div>

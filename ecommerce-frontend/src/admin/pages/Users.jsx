@@ -1,16 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Search, Eye, Edit2, Trash2 } from 'lucide-react';
 import Modal from '../components/common/Modal';
 import ConfirmDialog from '../components/common/ConfirmDialog';
 import useModal from '../hooks/useModal';
+import userService from '../services/userService';
 
 const Users = () => {
-    const [customers, setCustomers] = useState([
-        { id: 1, name: 'Nguyễn Văn A', email: 'nguyenvana@gmail.com', phone: '0912345678', orders: 12, total: '₫89,500,000' },
-        { id: 2, name: 'Trần Thị B', email: 'tranthib@gmail.com', phone: '0923456789', orders: 8, total: '₫45,200,000' },
-        { id: 3, name: 'Lê Văn C', email: 'levanc@gmail.com', phone: '0934567890', orders: 5, total: '₫28,900,000' },
-        { id: 4, name: 'Phạm Thị D', email: 'phamthid@gmail.com', phone: '0945678901', orders: 15, total: '₫125,400,000' },
-    ]);
+    const [customers, setCustomers] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [keyword, setKeyword] = useState('');
 
     const [deleteDialog, setDeleteDialog] = useState({ isOpen: false, customer: null });
     const [formData, setFormData] = useState({ name: '', email: '', phone: '' });
@@ -18,8 +16,54 @@ const Users = () => {
     const viewModalHook = useModal();
     const editModalHook = useModal();
 
-    const handleView = (customer) => {
-        viewModalHook.openModal(customer);
+    useEffect(() => {
+        fetchUsers();
+    }, []);
+
+    const fetchUsers = async (searchKeyword = '') => {
+        setLoading(true);
+        try {
+            const data = await userService.getUsers(searchKeyword, 'USER');
+            const rawList = Array.isArray(data) ? data : (data?.content || []);
+            const filtered = rawList.filter(u => {
+                const roles = Array.isArray(u.roles) ? u.roles : (Array.isArray(u.authorities) ? u.authorities : []);
+                const roleField = u.role || u.userRole;
+                return (Array.isArray(roles) && (roles.includes('USER') || roles.includes('ROLE_USER')))
+                    || (roleField === 'USER' || roleField === 'ROLE_USER');
+            });
+            const normalizedData = filtered.map(user => ({
+                id: user.id,
+                name: user.fullName,
+                email: user.email,
+                phone: user.phone,
+                createdAt: user.createdAt
+            }));
+            setCustomers(normalizedData);
+        } catch (error) {
+            console.error("Failed to fetch users", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleSearch = (e) => {
+        if (e.key === 'Enter') {
+            fetchUsers(keyword);
+        }
+    };
+
+    const handleView = async (customer) => {
+        try {
+            const details = await userService.getUserById(customer.id);
+            viewModalHook.openModal({
+                ...customer,
+                ...details // Merge thêm thông tin chi tiết nếu có
+            });
+        } catch (error) {
+            console.error("Failed to fetch user details", error);
+            // Fallback dùng thông tin hiện có
+            viewModalHook.openModal(customer);
+        }
     };
 
     const handleEdit = (customer) => {
@@ -35,31 +79,51 @@ const Users = () => {
         setDeleteDialog({ isOpen: true, customer });
     };
 
-    const confirmDelete = () => {
+    const confirmDelete = async () => {
         if (deleteDialog.customer) {
-            setCustomers(customers.filter(c => c.id !== deleteDialog.customer.id));
+            try {
+                await userService.deleteUser(deleteDialog.customer.id);
+                fetchUsers(keyword); // Refresh list
+            } catch (error) {
+                console.error("Failed to delete user", error);
+                alert("Xóa người dùng thất bại!");
+            }
         }
         setDeleteDialog({ isOpen: false, customer: null });
     };
 
-    const handleSaveEdit = () => {
+    const handleSaveEdit = async () => {
         if (editModalHook.modalData) {
-            setCustomers(customers.map(c =>
-                c.id === editModalHook.modalData.id
-                    ? { ...c, ...formData }
-                    : c
-            ));
-            editModalHook.closeModal();
+            try {
+                if (!formData.phone || String(formData.phone).trim() === '') {
+                    alert("Số điện thoại không được để trống");
+                    return;
+                }
+                // Mapping formData về đúng format API cần (nếu cần)
+                const updateData = {
+                    fullName: formData.name,
+                    phone: formData.phone,
+                    email: formData.email,
+                };
+                await userService.updateUser(editModalHook.modalData.id, updateData);
+                fetchUsers(keyword); // Refresh list
+                editModalHook.closeModal();
+            } catch (error) {
+                console.error("Failed to update user", error);
+                const errorMessage = error.response?.data?.message || error.message || "Cập nhật thất bại!";
+                alert(`Lỗi: ${errorMessage}`);
+            }
         }
+    };
+
+    // Helper format date
+    const formatDate = (dateString) => {
+        if (!dateString) return 'N/A';
+        return new Date(dateString).toLocaleDateString('vi-VN');
     };
 
     return (
         <div>
-            <div className="mb-6">
-                <h2 className="text-2xl font-bold text-gray-800">Khách Hàng</h2>
-                <p className="text-gray-600">Quản lý danh sách khách hàng</p>
-            </div>
-
             <div className="bg-white rounded-lg shadow overflow-hidden">
                 <div className="p-6 border-b border-gray-200">
                     <div className="relative max-w-md">
@@ -67,6 +131,9 @@ const Users = () => {
                         <input
                             type="text"
                             placeholder="Tìm kiếm khách hàng..."
+                            value={keyword}
+                            onChange={(e) => setKeyword(e.target.value)}
+                            onKeyDown={handleSearch}
                             className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
@@ -79,45 +146,48 @@ const Users = () => {
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Khách Hàng</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Số ĐT</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Đơn Hàng</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tổng Chi</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ngày tạo</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Thao Tác</th>
                         </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-200">
-                        {customers.map((customer) => (
+                        {loading ? (
+                             <tr><td colSpan="5" className="text-center py-4">Đang tải...</td></tr>
+                        ) : customers.length === 0 ? (
+                             <tr><td colSpan="5" className="text-center py-4">Không tìm thấy khách hàng nào.</td></tr>
+                        ) : (
+                            customers.map((customer) => (
                             <tr key={customer.id} className="hover:bg-gray-50 transition-colors">
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <div className="flex items-center">
-                                        <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-semibold mr-3">
-                                            {customer.name.split(' ').pop().charAt(0)}
+                                        <div className="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center text-white font-semibold mr-3">
+                                            {(customer.name || '?').split(' ').pop().charAt(0)}
                                         </div>
                                         <div className="font-medium text-gray-900">{customer.name}</div>
                                     </div>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{customer.email}</td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{customer.phone}</td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">{customer.orders}</td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">{customer.total}</td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{formatDate(customer.createdAt)}</td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm">
                                     <div className="flex items-center gap-2">
                                         <button
                                             onClick={() => handleView(customer)}
-                                            className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                                            className="p-2 bg-blue-300 text-gray-600 hover:bg-blue-600 rounded-lg transition-colors"
                                             title="Xem chi tiết"
                                         >
                                             <Eye size={18} />
                                         </button>
                                         <button
                                             onClick={() => handleEdit(customer)}
-                                            className="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors"
+                                            className="p-2 bg-green-300 text-gray-600 hover:bg-green-600 rounded-lg transition-colors"
                                             title="Chỉnh sửa"
                                         >
                                             <Edit2 size={18} />
                                         </button>
                                         <button
                                             onClick={() => handleDelete(customer)}
-                                            className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                                            className="p-2 bg-red-300 text-gray-600 hover:bg-red-600 rounded-lg transition-colors"
                                             title="Xóa"
                                         >
                                             <Trash2 size={18} />
@@ -125,7 +195,7 @@ const Users = () => {
                                     </div>
                                 </td>
                             </tr>
-                        ))}
+                        )))}
                         </tbody>
                     </table>
                 </div>
@@ -152,12 +222,8 @@ const Users = () => {
                             <p className="text-gray-900">{viewModalHook.modalData.phone}</p>
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Số Đơn Hàng</label>
-                            <p className="text-gray-900">{viewModalHook.modalData.orders}</p>
-                        </div>
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Tổng Chi Tiêu</label>
-                            <p className="text-gray-900">{viewModalHook.modalData.total}</p>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Ngày tạo</label>
+                            <p className="text-gray-900">{formatDate(viewModalHook.modalData.createdAt)}</p>
                         </div>
                     </div>
                 </Modal>

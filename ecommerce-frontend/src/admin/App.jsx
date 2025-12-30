@@ -6,7 +6,6 @@ import Users from './pages/Users';
 import Orders from './pages/Orders';
 import Products from './pages/Products';
 import Chat from './pages/Chat';
-import Settings from './pages/Settings';
 import Login from './pages/Login';
 
 function App() {
@@ -39,7 +38,6 @@ function App() {
                 <Route path="/products" element={<Products />} />
                 <Route path="/orders" element={<Orders />} />
                 <Route path="/chat" element={<Chat />} />
-                <Route path="/settings" element={<Settings />} />
             </Routes>
         </AdminLayout>
     );
