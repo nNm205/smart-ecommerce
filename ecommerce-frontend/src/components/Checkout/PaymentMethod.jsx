@@ -55,34 +55,6 @@ export default function PaymentMethod({ selectedMethod, onChange }) {
           );
         })}
       </div>
-
-      {selectedMethod === "vnpay" && (
-        <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-          <p className="text-sm font-medium text-gray-900 mb-2">
-            💳 Lưu ý thanh toán VNPay:
-          </p>
-          <ul className="text-sm text-gray-700 space-y-1.5">
-            <li className="flex items-start gap-2">
-              <span className="text-blue-600 mt-0.5">•</span>
-              <span>Bạn sẽ được chuyển hướng đến trang thanh toán VNPay</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-blue-600 mt-0.5">•</span>
-              <span>
-                Hỗ trợ: Thẻ ATM nội địa, Visa, MasterCard, JCB, ví điện tử
-              </span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-blue-600 mt-0.5">•</span>
-              <span>Giao dịch được mã hóa bảo mật SSL 256-bit</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-blue-600 mt-0.5">•</span>
-              <span>Đơn hàng sẽ được tạo sau khi thanh toán thành công</span>
-            </li>
-          </ul>
-        </div>
-      )}
     </div>
   );
 }
