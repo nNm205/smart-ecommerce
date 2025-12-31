@@ -37,6 +37,10 @@ const Products = () => {
     const [categoryFormData, setCategoryFormData] = useState({ id: null, name: '' });
     const [totalProductCount, setTotalProductCount] = useState(0);
     const [categoryCounts, setCategoryCounts] = useState({});
+    const [currentPage, setCurrentPage] = useState(0);
+    const [pageSize] = useState(24);
+    const [totalPages, setTotalPages] = useState(0);
+    const [totalElements, setTotalElements] = useState(0);
 
     // Load dữ liệu khi component mount
     useEffect(() => {
@@ -51,7 +55,7 @@ const Products = () => {
 
     useEffect(() => {
         loadProducts();
-    }, [searchTerm, selectedCategory]);
+    }, [searchTerm, selectedCategory, currentPage]);
 
     const toId = (v) => {
         if (v === '' || v === null || v === undefined) return '';
@@ -67,8 +71,8 @@ const Products = () => {
             const params = {
                 keyword: String(searchTerm || '').trim() || undefined,
                 categoryId: selectedCategory !== 'all' ? toId(selectedCategory) : undefined,
-                page: 0,
-                size: 24,
+                page: currentPage,
+                size: pageSize,
                 sortBy: 'createdAt',
                 direction: 'DESC',
             };
@@ -120,6 +124,17 @@ const Products = () => {
                 }
             }));
             setProducts(withImages);
+            const total =
+                typeof data?.totalElements === 'number' ? data.totalElements :
+                typeof data?.data?.totalElements === 'number' ? data.data.totalElements :
+                Array.isArray(data) ? data.length :
+                Array.isArray(data?.data) ? data.data.length : 0;
+            setTotalElements(total);
+            const tp =
+                typeof data?.totalPages === 'number' ? data.totalPages :
+                typeof data?.data?.totalPages === 'number' ? data.data.totalPages :
+                total > 0 ? Math.ceil(total / pageSize) : 0;
+            setTotalPages(tp);
         } catch (err) {
             setError('Không thể tải danh sách sản phẩm');
             console.error(err);
@@ -420,7 +435,10 @@ const Products = () => {
                         {categories.map((category) => (
                             <button
                                 key={category.id}
-                                onClick={() => setSelectedCategory(category.id)}
+                                onClick={() => {
+                                    setSelectedCategory(category.id);
+                                    setCurrentPage(0);
+                                }}
                                 className={`w-full flex items-center justify-between px-4 py-3 rounded-lg transition-colors text-left ${
                                     selectedCategory === category.id
                                         ? 'bg-blue-50 text-blue-600 font-medium'
@@ -477,12 +495,17 @@ const Products = () => {
                                 type="text"
                                 placeholder="Tìm kiếm"
                                 value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
+                                onChange={(e) => {
+                                    setSearchTerm(e.target.value);
+                                    setCurrentPage(0);
+                                }}
                                 className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
                         </div>
                         <div className="flex items-center gap-4 ml-6">
-                            <span className="text-gray-600"> 1–{filteredProducts.length} trong số {filteredProducts.length} </span>
+                            <span className="text-gray-600">
+                                {totalElements === 0 ? '0–0' : `${currentPage * pageSize + 1}–${currentPage * pageSize + (filteredProducts.length || 0)}`} trong số {totalElements}
+                            </span>
                             <button
                                 onClick={handleAdd}
                                 className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
@@ -563,6 +586,27 @@ const Products = () => {
                                 </div>
                             </div>
                         ))}
+                    </div>
+                )}
+                {totalPages > 1 && (
+                    <div className="mt-6 flex items-center justify-center gap-2">
+                        <button
+                            onClick={() => setCurrentPage((p) => Math.max(0, p - 1))}
+                            disabled={currentPage === 0}
+                            className={`px-3 py-2 rounded border ${currentPage === 0 ? 'text-gray-400 border-gray-200 bg-gray-100 cursor-not-allowed' : 'text-gray-700 border-gray-300 bg-white hover:bg-gray-50'}`}
+                        >
+                            Trước
+                        </button>
+                        <span className="px-3 py-2 text-gray-700">
+                            Trang {currentPage + 1}/{totalPages}
+                        </span>
+                        <button
+                            onClick={() => setCurrentPage((p) => Math.min(totalPages - 1, p + 1))}
+                            disabled={currentPage >= totalPages - 1}
+                            className={`px-3 py-2 rounded border ${currentPage >= totalPages - 1 ? 'text-gray-400 border-gray-200 bg-gray-100 cursor-not-allowed' : 'text-gray-700 border-gray-300 bg-white hover:bg-gray-50'}`}
+                        >
+                            Sau
+                        </button>
                     </div>
                 )}
             </div>

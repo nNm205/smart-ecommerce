@@ -35,7 +35,7 @@ const NotificationDropdown = () => {
                 };
             });
             setNotifications(mapped);
-        } catch (e) {
+        } catch {
             setNotifications([]);
         } finally {
             setLoading(false);
