@@ -13,6 +13,7 @@ import { useTokenRefresh } from "@/hooks/useTokenRefresh";
 import VNPayReturnPage from "@/pages/VNPayReturnPage";
 import OrderDetailPage from "./pages/OrderDetailPage";
 import ChatWidget from "./components/ChatWidget";
+import SearchPage from "./pages/SearchPage";
 
 function App() {
   useTokenRefresh(60);
@@ -57,6 +58,9 @@ function App() {
 
           {/* Checkout VNPay route */}
           <Route path="/vnpay-return" element={<VNPayReturnPage />} />
+
+          {/* Search route */}
+          <Route path="/search" element={<SearchPage />} />
         </Routes>
 
         <ChatWidget />

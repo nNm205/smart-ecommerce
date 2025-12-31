@@ -94,4 +94,48 @@ export const productService = {
       throw error;
     }
   },
+
+  searchProducts: async (params = {}) => {
+    try {
+      const queryParams = {
+        page: params.page ?? 0,
+        size: params.size ?? 12,
+        sortBy: params.sortBy ?? "createdAt",
+        direction: params.direction ?? "DESC",
+      };
+
+      if (params.keyword && params.keyword.trim()) {
+        queryParams.keyword = params.keyword.trim();
+      }
+
+      if (params.categoryId) {
+        queryParams.categoryId = params.categoryId;
+      }
+
+      if (
+        params.minPrice !== undefined &&
+        params.minPrice !== null &&
+        params.minPrice !== ""
+      ) {
+        queryParams.minPrice = params.minPrice;
+      }
+
+      if (
+        params.maxPrice !== undefined &&
+        params.maxPrice !== null &&
+        params.maxPrice !== ""
+      ) {
+        queryParams.maxPrice = params.maxPrice;
+      }
+
+      const response = await api.get("/products/search", {
+        params: queryParams,
+      });
+
+      return response.data;
+    } catch (error) {
+      console.error("Error searching products:", error);
+      throw error;
+    }
+  },
 };
