@@ -10,6 +10,7 @@ import PaymentMethod from "@/components/Checkout/PaymentMethod";
 import OrderSummary from "@/components/Checkout/OrderSummary";
 import { validateCheckoutForm } from "@/utils/checkoutValidation";
 import { orderService } from "@/services/orderService";
+import useAuth from "@/contexts/useAuth";
 
 export default function CheckoutPage() {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ export default function CheckoutPage() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [errors, setErrors] = useState({});
   const [isRestoringCart, setIsRestoringCart] = useState(false);
+  const { auth } = useAuth();
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -30,6 +32,14 @@ export default function CheckoutPage() {
 
   const [paymentMethod, setPaymentMethod] = useState("cod");
 
+  useEffect(() => {
+    setFormData((prev) => ({
+      ...prev,
+      fullName: auth.fullName,
+      email: auth.email,
+    }));
+  }, []);
+
   // Khôi phục giỏ hàng và form data từ pendingOrderData
   useEffect(() => {
     const orderDataStr = localStorage.getItem("pendingOrderData");
@@ -41,8 +51,8 @@ export default function CheckoutPage() {
     const restoreCart = async () => {
       try {
         const orderData = JSON.parse(orderDataStr);
-        console.log("📦 pendingOrderData:", orderData);
-        console.log("🛒 Cart hiện tại TRƯỚC khi restore:", cartItems);
+        console.log("pendingOrderData:", orderData);
+        console.log("Cart hiện tại TRƯỚC khi restore:", cartItems);
 
         // Khôi phục form data
         if (orderData.formData) {
@@ -52,19 +62,19 @@ export default function CheckoutPage() {
         // Khôi phục giỏ hàng - CLEAR trước khi restore để tránh duplicate
         if (orderData.cartItems && orderData.cartItems.length > 0) {
           console.log(
-            "🔄 Bắt đầu restore cart với",
+            "Bắt đầu restore cart với",
             orderData.cartItems.length,
             "items"
           );
           setIsRestoringCart(true);
 
           // QUAN TRỌNG: Clear cart hiện tại trước
-          console.log("🗑️ Clearing cart...");
+          console.log("Clearing cart...");
           await clearCart();
-          console.log("✅ Cart đã được clear");
+          console.log("Cart đã được clear");
 
           // Restore từng item với đúng format
-          console.log("➕ Bắt đầu thêm items vào cart...");
+          console.log("Bắt đầu thêm items vào cart...");
           for (const item of orderData.cartItems) {
             console.log("Adding item:", item);
             const product = {
@@ -77,18 +87,18 @@ export default function CheckoutPage() {
 
             await addToCart(
               product,
-              { size: item.size || "M", color: item.color || "mặc định" },
+              { size: item.size || "M", color: "mặc định" },
               item.quantity
             );
           }
 
-          console.log("✅ Hoàn tất restore cart");
+          console.log("Hoàn tất restore cart");
           setIsRestoringCart(false);
           // Xóa pendingOrderData sau khi đã khôi phục
           localStorage.removeItem("pendingOrderData");
         }
       } catch (error) {
-        console.error("❌ Error loading pending order data:", error);
+        console.error("Error loading pending order data:", error);
         setIsRestoringCart(false);
         localStorage.removeItem("pendingOrderData");
       }
@@ -178,8 +188,7 @@ export default function CheckoutPage() {
           })
         );
 
-        // QUAN TRỌNG: Clear cart trước khi chuyển sang VNPay
-        // để tránh duplicate khi quay lại
+        // Clear cart trước khi chuyển sang VNPay để tránh duplicate khi quay lại
         clearCart();
 
         // Redirect sau khi clear cart

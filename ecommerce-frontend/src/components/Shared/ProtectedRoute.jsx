@@ -1,10 +1,19 @@
-// import { Navigate } from "react-router-dom";
-// import { useAuth } from "@/hooks/useAuth";
+import { Navigate } from "react-router-dom";
+import useAuth from "@/contexts/useAuth";
 
-// export default function ProtectedRoute({ children }) {
-//   const { user } = useAuth();
-//   if (!user) return <Navigate to="/login" replace />;
-//   return children;
-// }
+function ProtectedRoute({ children, requireAuth = false }) {
+  const { auth } = useAuth();
 
-export default function ProtectedRoute() {}
+  if (auth.isAuthenticated && auth.role === "ADMIN") {
+    localStorage.clear();
+    return <Navigate to="/login" replace />;
+  }
+
+  if (requireAuth && !auth.isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return children;
+}
+
+export default ProtectedRoute;

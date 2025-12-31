@@ -76,6 +76,14 @@ function LoginPage() {
       const { email, role, fullName, accessToken, refreshToken, userId } =
         responseData;
 
+      if (role === "ADMIN") {
+        setErrorMessage(
+          "Tài khoản Admin không có quyền truy cập vào giao diện user"
+        );
+        setIsLoading(false);
+        return;
+      }
+
       localStorage.setItem("accessToken", accessToken);
 
       if (refreshToken) {

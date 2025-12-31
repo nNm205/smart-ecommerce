@@ -18,6 +18,13 @@ export function AuthProvider({ children }) {
     if (accessToken && userStr) {
       try {
         const user = JSON.parse(userStr);
+
+        if (user.role === "ADMIN") {
+          console.warn("Admin không thể truy cập giao diện user");
+          logout();
+          return;
+        }
+
         setAuth({
           email: user.email || "",
           fullName: user.fullName || "",
