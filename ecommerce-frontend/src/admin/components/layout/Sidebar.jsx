@@ -20,7 +20,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, currentPath }) => {
     { id: "users", path: "/users", icon: Users, label: "Khách Hàng" },
     { id: "products", path: "/products", icon: Package, label: "Sản Phẩm" },
     { id: "orders", path: "/orders", icon: ShoppingCart, label: "Đơn Hàng" },
-    { id: "chat", path: "/chat", icon: MessageSquare, label: "Chat", badge: 3 },
+    { id: "chat", path: "/chat", icon: MessageSquare, label: "Chat" },
     { id: "reviews", path: "/reviews", icon: Star, label: "Reviews" },
   ];
 
