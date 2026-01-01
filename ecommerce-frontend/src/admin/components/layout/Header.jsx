@@ -1,16 +1,9 @@
-import { useNavigate } from "react-router-dom";
 import { Search } from "lucide-react";
 import { useAuth } from "../../hooks/useAuth";
 import NotificationDropdown from '../common/NotificationDropdown.jsx';
 
 const Header = () => {
-  const { auth, logout } = useAuth(); // ✅ Lấy cả auth để hiển thị thông tin user
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    logout();
-    navigate("/login", { replace: true });
-  };
+  const { auth } = useAuth(); // ✅ Lấy cả auth để hiển thị thông tin user
 
   return (
     <header className="bg-white shadow-sm border-b border-gray-200">

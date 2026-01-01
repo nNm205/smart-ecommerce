@@ -9,9 +9,11 @@ import {
   Star,
   X,
 } from "lucide-react";
+import { useAuth } from "../../hooks/useAuth";
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen, currentPath }) => {
   const navigate = useNavigate();
+  const { logout } = useAuth();
 
   const menuItems = [
     { id: "dashboard", path: "/", icon: LayoutDashboard, label: "Dashboard" },
@@ -78,12 +80,11 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, currentPath }) => {
         })}
       </nav>
 
-      {/* Footer - User Info */}
       <button
           onClick={handleLogout}
           className="px-4 py-2 text-sm font-medium text-red-600 hover:bg-gray-400 rounded-lg transition-colors"
       >
-        Đăng Xuất
+          Đăng xuất
       </button>
     </div>
   );
