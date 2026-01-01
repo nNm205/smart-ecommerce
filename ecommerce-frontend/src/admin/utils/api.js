@@ -1,49 +1,82 @@
-import axios from 'axios';
+import axios from "axios";
 
-const API_BASE_URL = import.meta.env.VITE_API_URL;
-
+// Cấu hình base URL của API backend
 const api = axios.create({
-    baseURL: API_BASE_URL,
-    headers: {
-        'Content-Type': 'application/json',
-    },
+  baseURL: import.meta.env.VITE_API_URL || "http://localhost:8087/api",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  timeout: 10000, // 10 seconds
 });
 
-// Request interceptor - thêm token vào header nếu có
+// Request interceptor - Tự động thêm token vào mỗi request
 api.interceptors.request.use(
-    (config) => {
-        // Bypass CORS cho các request Dashboard (/admin) bằng cách dùng Proxy
-        if (config.url?.startsWith('/admin')) {
-            config.baseURL = ''; 
-        }
-
-        const token = localStorage.getItem('token');
-        if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
-        }
-        if (config.data instanceof FormData) {
-            if (config.headers && 'Content-Type' in config.headers) {
-                delete config.headers['Content-Type'];
-            }
-        }
-        return config;
-    },
-    (error) => {
-        return Promise.reject(error);
+  (config) => {
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
     }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
 );
 
-// Response interceptor - xử lý lỗi chung
+// Response interceptor - Xử lý refresh token khi token hết hạn
 api.interceptors.response.use(
-    (response) => response,
-    (error) => {
-        if (error.response?.status === 401) {
-            // Token hết hạn hoặc không hợp lệ
-            localStorage.removeItem('token');
-            window.location.href = '/login';
+  (response) => {
+    return response;
+  },
+  async (error) => {
+    const originalRequest = error.config;
+
+    // Nếu lỗi 401 và chưa retry
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+
+      try {
+        const refreshToken = localStorage.getItem("refreshToken");
+
+        if (refreshToken) {
+          // Gọi API refresh token
+          const response = await axios.post(
+            `${api.defaults.baseURL}/auth/refresh`,
+            null,
+            {
+              headers: {
+                Authorization: `Bearer ${refreshToken}`,
+                "Content-Type": "application/json",
+              },
+            }
+          );
+
+          const { accessToken, refreshToken: newRefreshToken } = response.data;
+
+          // Lưu token mới
+          localStorage.setItem("accessToken", accessToken);
+          if (newRefreshToken) {
+            localStorage.setItem("refreshToken", newRefreshToken);
+          }
+
+          // Retry request ban đầu với token mới
+          originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+          return api(originalRequest);
         }
-        return Promise.reject(error);
+      } catch (refreshError) {
+        // Nếu refresh token thất bại, xóa data và redirect về login
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        localStorage.removeItem("user");
+        window.location.href = "/login";
+        return Promise.reject(refreshError);
+      }
     }
+
+    return Promise.reject(error);
+  }
 );
 
+// Export default và named export để tương thích với cả 2 cách import
 export default api;
+export { api };

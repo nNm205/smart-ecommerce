@@ -16,7 +16,7 @@ const ProductDetail = ({ product, onClose }) => {
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50" onClick={onClose}>
             <div
-                className="bg-white rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto"
+                className="bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto"
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Header */}
@@ -134,37 +134,26 @@ const ProductDetail = ({ product, onClose }) => {
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <p className="text-sm text-gray-600 mb-1">Mã sản phẩm</p>
-                                <p className="font-medium text-gray-800">SP{product.id}</p>
+                                <p className="font-medium text-gray-800">SP{product.id.toString().padStart(4, '0')}</p>
                             </div>
                             <div>
                                 <p className="text-sm text-gray-600 mb-1">Danh mục</p>
                                 <p className="font-medium text-gray-800">{categoryLabel}</p>
                             </div>
                         </div>
-                        <div className="mt-4">
-                            <h5 className="font-semibold text-gray-800 mb-2">Tồn kho theo size</h5>
-                            <div className="grid grid-cols-4 gap-3">
-                                {(() => {
-                                    const list = Array.isArray(product.variants)
-                                        ? product.variants
-                                        : (product.variants && typeof product.variants === 'object'
-                                            ? Object.entries(product.variants).map(([size, quantity]) => ({ size, quantity }))
-                                            : []);
-                                    return list.length
-                                        ? list.map((v) => (
-                                            <div key={v.size} className="p-3 bg-white border border-gray-200 rounded-lg text-center">
-                                                <div className="text-xs text-gray-500 mb-1">{v.size}</div>
-                                                <div className="text-sm font-semibold text-gray-800">{parseInt(v.quantity || 0)}</div>
-                                            </div>
-                                        ))
-                                        : (
-                                            <div className="col-span-4 text-center text-gray-500">
-                                                Không có thông tin size
-                                            </div>
-                                        );
-                                })()}
+                        {product.quantity && (
+                            <div className="mt-4">
+                                <h5 className="font-semibold text-gray-800 mb-2">Tồn kho theo size</h5>
+                                <div className="grid grid-cols-4 gap-3">
+                                    {(Array.isArray(product.variants) ? product.variants : []).map((v) => (
+                                        <div key={v.size} className="p-3 bg-white border border-gray-200 rounded-lg text-center">
+                                            <div className="text-xs text-gray-500 mb-1">{v.size}</div>
+                                            <div className="text-sm font-semibold text-gray-800">{parseInt(v.quantity || 0)}</div>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
-                        </div>
+                        )}
                     </div>
                 </div>
 
