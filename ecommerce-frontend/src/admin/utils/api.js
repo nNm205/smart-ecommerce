@@ -6,7 +6,6 @@ const api = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
-  timeout: 10000, // 10 seconds
 });
 
 // Request interceptor - Tự động thêm token vào mỗi request
