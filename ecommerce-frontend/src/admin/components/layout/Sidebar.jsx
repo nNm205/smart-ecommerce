@@ -31,22 +31,19 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, currentPath }) => {
     }
   };
 
+  const handleLogout = () => {
+    logout();
+    navigate("/login", { replace: true });
+  };
+
   return (
-    <div
-      className={`${
-        sidebarOpen ? "w-64" : "w-20"
-      } bg-gray-900 text-white transition-all duration-300 flex flex-col`}
-    >
-      {/* Header */}
-      <div className="p-4 flex items-center justify-between border-b border-gray-700">
-        {sidebarOpen && <h1 className="text-xl font-bold">Admin Panel</h1>}
-        <button
-          onClick={() => setSidebarOpen(!sidebarOpen)}
-          className="p-2 hover:bg-gray-800 rounded transition-colors"
-        >
-          {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
-        </button>
-      </div>
+      <div className={`${sidebarOpen ? 'w-64' : 'w-20'} bg-gray-50 text-gray-900 transition-all duration-300 flex flex-col border-r border-gray-200`}>
+        <div className="p-4 flex items-center justify-between border-b border-gray-200">
+          {sidebarOpen && <h1 className="text-xl font-bold">Admin Panel</h1>}
+          <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2 hover:bg-gray-100 rounded">
+            {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
 
       {/* Navigation */}
       <nav className="flex-1 p-4">
@@ -59,7 +56,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, currentPath }) => {
               key={item.id}
               onClick={() => handleNavigate(item.path)}
               className={`w-full flex items-center gap-3 p-3 rounded-lg mb-2 transition-colors relative ${
-                isActive ? "bg-blue-600" : "hover:bg-gray-800"
+                isActive ? "bg-blue-100 text-blue-700" : "hover:bg-gray-100"
               }`}
             >
               <Icon size={20} className="flex-shrink-0" />
@@ -82,21 +79,12 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, currentPath }) => {
       </nav>
 
       {/* Footer - User Info */}
-      <div className="p-4 border-t border-gray-700">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center font-semibold flex-shrink-0">
-            AD
-          </div>
-          {sidebarOpen && (
-            <div className="min-w-0 flex-1">
-              <p className="font-semibold truncate text-sm">Admin User</p>
-              <p className="text-xs text-gray-400 truncate">
-                admin@example.com
-              </p>
-            </div>
-          )}
-        </div>
-      </div>
+      <button
+          onClick={handleLogout}
+          className="px-4 py-2 text-sm font-medium text-red-600 hover:bg-gray-400 rounded-lg transition-colors"
+      >
+        Đăng Xuất
+      </button>
     </div>
   );
 };

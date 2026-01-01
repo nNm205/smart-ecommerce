@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { Bell, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import { useAuth } from "../../hooks/useAuth";
+import NotificationDropdown from '../common/NotificationDropdown.jsx';
 
 const Header = () => {
   const { auth, logout } = useAuth(); // ✅ Lấy cả auth để hiển thị thông tin user
@@ -32,10 +33,7 @@ const Header = () => {
         {/* Right Side */}
         <div className="flex items-center gap-4">
           {/* Notifications */}
-          <button className="relative p-2 hover:bg-gray-100 rounded-lg transition-colors">
-            <Bell size={20} className="text-gray-600" />
-            <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-          </button>
+          <NotificationDropdown />
 
           {/* User Info */}
           <div className="flex items-center gap-3 pl-4 border-l border-gray-200">
@@ -51,14 +49,6 @@ const Header = () => {
               {auth?.fullName?.charAt(0) || "A"}
             </div>
           </div>
-
-          {/* Logout Button */}
-          <button
-            onClick={handleLogout}
-            className="px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-          >
-            Đăng xuất
-          </button>
         </div>
       </div>
     </header>
